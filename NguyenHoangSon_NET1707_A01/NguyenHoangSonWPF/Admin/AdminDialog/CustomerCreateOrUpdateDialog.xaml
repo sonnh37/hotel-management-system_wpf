@@ -1,0 +1,49 @@
+﻿<Window x:Class="NguyenHoangSonWPF.Admin.AdminDialog.CustomerCreateOrUpdateDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NguyenHoangSonWPF.Admin.AdminDialog"
+        mc:Ignorable="d"
+        Title="CustomerCreateOrUpdateDialog" 
+        Height="500" Width="600"
+        Loaded="Window_Loaded"
+        >
+    <Window.Resources>
+        <ResourceDictionary Source="../../StyleResource/StyleResource.xaml"></ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBlock Margin="0 10 0 20"  FontWeight="Light" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource ResourceKey=headingPrimary}">
+          Customer Control
+            </TextBlock>
+            <StackPanel Background="white" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+                <Label Content="Id" x:Name="labelId" Visibility="Collapsed" IsEnabled="False" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxId" Margin="0 0 0 5" Visibility="Collapsed" IsEnabled="False" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+                
+                <Label Content="FullName" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxFullName" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+                
+                <Label Content="Telephone" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxTelephone" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+                
+                <Label Content="EmailAddress" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxEmailAddress" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+                
+                <Label Content="Birthday" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <DatePicker x:Name="txtBoxBirthday" Margin="0 0 0 5" />
+
+                <Label Content="Status" x:Name="labelStatus" Visibility="Collapsed" IsEnabled="False" Style="{StaticResource ResourceKey=labelPrimary}" />
+                <ComboBox x:Name="cboStatus" Visibility="Collapsed" IsEnabled="False">
+                    <ComboBoxItem IsSelected="True">Active</ComboBoxItem>
+                    <ComboBoxItem >Deleted</ComboBoxItem>
+                </ComboBox>
+                
+                <Label Content="Password" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <PasswordBox x:Name="txtBoxPassword" Margin="0 0 0 5"/>
+                
+                <Button x:Name="btn" Content="Create" Style="{StaticResource ResourceKey=btnPrimary}" Width="100" Margin="0 10 0 5" Click="Button_Click"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
