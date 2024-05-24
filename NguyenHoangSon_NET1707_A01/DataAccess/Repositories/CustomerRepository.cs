@@ -1,4 +1,5 @@
 ﻿using BusinessObject.Models;
+using BusinessObject.Views;
 using DataAccess.IRepositories;
 using DataAccess.Managements;
 using System;
@@ -21,7 +22,7 @@ namespace DataAccess.Repositories
             CustomerManagement.Instance.Delete(customer);
         }
 
-        public IEnumerable<Customer> List()
+        public IEnumerable<Customer> GetAll()
         {
             return CustomerManagement.Instance.GetAll();
         }
@@ -34,6 +35,22 @@ namespace DataAccess.Repositories
         public Customer GetById(int id)
         {
             return CustomerManagement.Instance.GetById(id);
+        }
+
+        public IEnumerable<Customer> GetAllByFilter(CustomerView filter)
+        {
+            if (filter != null)
+            {
+                return CustomerManagement.Instance.FindAll
+                    (customer => (filter.CustomerId == null || customer.CustomerId.Equals(filter.CustomerId)) &&
+                    (filter.CustomerFullName == null || customer.CustomerFullName.ToLower().Trim().Contains(filter.CustomerFullName.ToLower().Trim())) &&
+                    (filter.Telephone == null || customer.Telephone.Trim().Contains(filter.Telephone.Trim())) &&
+                    (filter.EmailAddress == null || customer.EmailAddress.ToLower().Trim().Contains(filter.EmailAddress.ToLower().Trim())) &&
+                    (filter.CustomerBirthday == null || customer.CustomerBirthday.Equals(filter.CustomerBirthday)) &&
+                    (customer.CustomerStatus == Convert.ToByte(1)));
+                    
+            }
+            return GetAll();
         }
     }
 }

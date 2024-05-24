@@ -19,6 +19,7 @@ namespace NguyenHoangSonWPF
         public App()
         {
             ServiceCollection services = new ServiceCollection();
+
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
         }
@@ -35,6 +36,7 @@ namespace NguyenHoangSonWPF
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+
         }
 
         private void OnStartup(object sender, StartupEventArgs e)

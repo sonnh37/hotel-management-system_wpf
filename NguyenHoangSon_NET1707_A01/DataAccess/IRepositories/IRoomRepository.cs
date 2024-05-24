@@ -10,7 +10,7 @@ namespace DataAccess.IRepositories
 {
     public interface IRoomRepository
     {
-        IEnumerable<RoomInformation> List();
+        IEnumerable<RoomInformation> GetAll();
         void Add(RoomInformation room);
         void Update(RoomInformation room);
         void Delete(RoomInformation room);

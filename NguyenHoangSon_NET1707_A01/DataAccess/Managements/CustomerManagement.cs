@@ -86,10 +86,10 @@ namespace DataAccess.Managements
             return customers;
         }
 
-        public IEnumerable<Customer> List()
+        public IEnumerable<Customer> GetAll()
         {
             List<Customer> customers = new List<Customer>();
-            customers = base.GetAll();
+            customers = base.GetAll(model => model.CustomerStatus == Convert.ToByte(1));
 
             return customers;
         }

@@ -10,7 +10,7 @@ namespace DataAccess.IRepositories
 {
     public interface IBookingRepository 
     {
-        IEnumerable<BookingReservation> List();
+        IEnumerable<BookingReservation> GetAll();
         void Add(BookingReservation booking);
         void Update(BookingReservation booking);
         void Delete(BookingReservation booking);

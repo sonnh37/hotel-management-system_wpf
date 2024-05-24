@@ -38,7 +38,7 @@ namespace NguyenHoangSonWPF
             this.customerRepository = _customerRepository;
             this.bookingRepository = _bookingRepository;
             this.roomRepository = _roomRepository;
-            //ListProduct.ItemsSource = productRepository.List();
+            //ListProduct.ItemsSource = productRepository.GetAll();
             //Session.carts = new List<BookingDetail>();
             //UpdateCartQuantity();
         }

@@ -8,7 +8,9 @@ using NguyenHoangSonWPF.Admin.AdminDialog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +30,7 @@ namespace NguyenHoangSonWPF.Admin
     public partial class CustomerManagementPage : Page
     {
         private readonly ICustomerRepository customerRepository;
+
         public CustomerManagementPage(ICustomerRepository _customerRepository)
         {
             InitializeComponent();
@@ -53,17 +56,26 @@ namespace NguyenHoangSonWPF.Admin
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             listView.ItemsSource = GetListView();
+            ClearFieldsExisting();
         }
 
         public void RefreshListView()
         {
             listView.ItemsSource = GetListView();
+            ClearFieldsExisting();
+        }
+
+        private void Button_Reload(object sender, RoutedEventArgs e)
+        {
+            listView.ItemsSource = GetListView();
+            // clear
+            ClearFieldsExisting();
         }
 
         private IEnumerable<CustomerView> GetListView()
         {
             List<CustomerView> views = new List<CustomerView>();
-            foreach (var item in customerRepository.List())
+            foreach (var item in customerRepository.GetAll())
             {
                 if (item.CustomerStatus != Convert.ToByte(2))
                 {
@@ -76,25 +88,16 @@ namespace NguyenHoangSonWPF.Admin
 
         private void Button_Search(object sender, RoutedEventArgs e)
         {
+            CustomerView customerViewFilter = GetCustomerViewFilter();
+            IEnumerable<Customer> models = customerRepository.GetAllByFilter(customerViewFilter);
+            List<CustomerView> views = new List<CustomerView>();
 
-        }
-
-        private void Button_Reload(object sender, RoutedEventArgs e)
-        {
-            listView.ItemsSource = GetListView();
-        }
-
-        private void Button_Delete(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Do you wan't remove customer seledted?", "Remove customer", MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
+            foreach (var model in models)
             {
-                List<CustomerView> views = listView.SelectedItems.Cast<CustomerView>().ToList();
-                views.ForEach(view => view.CustomerStatus = "Deleted");
-                views.ForEach(view => customerRepository.Update(ConvertViewToModel(view)));
-
-                RefreshListView();
+                views.Add(ConvertModelToView((Customer)model));
             }
+
+            listView.ItemsSource = views;
         }
 
         private void Button_Edit(object sender, RoutedEventArgs e)
@@ -116,6 +119,19 @@ namespace NguyenHoangSonWPF.Admin
             }
         }
 
+        private void Button_Delete(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Do you wan't remove customer seledted?", "Remove customer", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                List<CustomerView> views = listView.SelectedItems.Cast<CustomerView>().ToList();
+                views.ForEach(view => view.CustomerStatus = "Deleted");
+                views.ForEach(view => customerRepository.Update(ConvertViewToModel(view)));
+
+                RefreshListView();
+            }
+        }
+
         private void Button_OpenCreate(object sender, RoutedEventArgs e)
         {
             CustomerCreateOrUpdateDialog dialog = new CustomerCreateOrUpdateDialog(customerRepository, this, null);
@@ -133,7 +149,7 @@ namespace NguyenHoangSonWPF.Admin
 
         }
 
-        #region Mapping View, Model 
+        #region Mapping View, Model + Get ViewFilter 
         private CustomerView ConvertModelToView(Customer model)
         {
             return new CustomerView()
@@ -161,6 +177,35 @@ namespace NguyenHoangSonWPF.Admin
             return c;
         }
 
+        private CustomerView GetCustomerViewFilter()
+        {
+            return new CustomerView()
+            {
+                CustomerId = !String.IsNullOrEmpty(searchById.Text) ? int.Parse(searchById.Text) : null,
+                EmailAddress = !String.IsNullOrEmpty(searchByEmail.Text) ? searchByEmail.Text : null,
+                CustomerFullName = !String.IsNullOrEmpty(searchByFullName.Text) ? searchByFullName.Text : null,
+                Telephone = !String.IsNullOrEmpty(searchByTelephone.Text) ? searchByTelephone.Text : null,
+                CustomerBirthday = searchByBirthday.SelectedDate.HasValue ? searchByBirthday.SelectedDate.Value : null,
+                CustomerStatus = !String.IsNullOrEmpty(searchByStatus.Text) ? searchByStatus.Text : null,
+            };
+        }
+
         #endregion
+
+        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void ClearFieldsExisting()
+        {
+            searchById.Clear();
+            searchByEmail.Clear();
+            searchByFullName.Clear();
+            searchByTelephone.Clear();
+            searchByStatus.Clear();
+            searchByBirthday.SelectedDate = null;
+        }
     }
 }

@@ -9,10 +9,10 @@ namespace BusinessObject.Views
 {
     public class CustomerView
     {
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public string? CustomerFullName { get; set; }
         public string? Telephone { get; set; }
-        public string EmailAddress { get; set; } = null!;
+        public string? EmailAddress { get; set; } = null!;
         public DateTime? CustomerBirthday { get; set; }
         public string? CustomerStatus { get; set; }
         public string? Password { get; set; }

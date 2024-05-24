@@ -22,7 +22,7 @@
                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0 0 0 10" >
                     <StackPanel>
                         <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Id"/>
-                        <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchById" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                        <TextBox PreviewTextInput="PreviewTextInput"  Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchById" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                     </StackPanel>
                     <StackPanel>
                         <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Full Name"/>
@@ -37,8 +37,8 @@
                         <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByEmail" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                     </StackPanel>
                     <StackPanel>
-                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Birthday"/>
-                        <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByBirthday" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                        <Label  Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Birthday"/>
+                        <DatePicker Width="200" Height="30" x:Name="searchByBirthday" Margin="0 0 5 0" />
                     </StackPanel>
                     <StackPanel>
                         <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Status"/>

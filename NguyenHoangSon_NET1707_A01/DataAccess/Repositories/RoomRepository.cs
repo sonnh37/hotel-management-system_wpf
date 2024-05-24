@@ -21,7 +21,7 @@ namespace DataAccess.Repositories
             RoomManagement.Instance.Delete(room);
         }
 
-        public IEnumerable<RoomInformation> List()
+        public IEnumerable<RoomInformation> GetAll()
         {
             return RoomManagement.Instance.GetAll();
         }

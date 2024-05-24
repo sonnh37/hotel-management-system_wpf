@@ -89,7 +89,7 @@ namespace DataAccess.Managements
             return bookings;
         }
 
-        public IEnumerable<BookingReservation> List()
+        public IEnumerable<BookingReservation> GetAll()
         {
             List<BookingReservation> bookings = new List<BookingReservation>();
             bookings = base.GetAll();

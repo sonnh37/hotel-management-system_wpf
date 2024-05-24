@@ -1,8 +1,11 @@
-﻿using System;
+﻿using BusinessObject.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BusinessObject.Shared
 {
@@ -16,6 +19,20 @@ namespace BusinessObject.Shared
         public static string SetStatus(byte status)
         {
             return status == Convert.ToByte(1) ? "Active" : "Deleted";
+        }
+
+        private bool IsValidInputFields(CustomerView view)
+        {
+            if (string.IsNullOrEmpty(view.CustomerId.ToString()) &&
+                string.IsNullOrEmpty(view.CustomerFullName.ToString()) &&
+                string.IsNullOrEmpty(view.CustomerBirthday.ToString()) &&
+                string.IsNullOrEmpty(view.CustomerStatus.ToString()) &&
+                string.IsNullOrEmpty(view.EmailAddress.ToString()) &&
+                string.IsNullOrEmpty(view.Telephone.ToString()))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

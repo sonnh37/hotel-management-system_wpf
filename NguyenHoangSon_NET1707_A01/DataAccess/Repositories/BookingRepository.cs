@@ -21,7 +21,7 @@ namespace DataAccess.Repositories
             BookingManagement.Instance.Delete(booking);
         }
 
-        public IEnumerable<BookingReservation> List()
+        public IEnumerable<BookingReservation> GetAll()
         {
             return BookingManagement.Instance.GetAll();
         }
