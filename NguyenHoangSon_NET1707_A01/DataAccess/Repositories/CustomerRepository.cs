@@ -39,17 +39,13 @@ namespace DataAccess.Repositories
 
         public IEnumerable<Customer> GetAllByFilter(CustomerView filter)
         {
-            if (filter != null)
-            {
-                return CustomerManagement.Instance.FindAll
-                    (customer => (filter.CustomerId == null || customer.CustomerId.Equals(filter.CustomerId)) &&
-                    (filter.CustomerFullName == null || customer.CustomerFullName.ToLower().Trim().Contains(filter.CustomerFullName.ToLower().Trim())) &&
-                    (filter.Telephone == null || customer.Telephone.Trim().Contains(filter.Telephone.Trim())) &&
-                    (filter.EmailAddress == null || customer.EmailAddress.ToLower().Trim().Contains(filter.EmailAddress.ToLower().Trim())) &&
-                    (filter.CustomerBirthday == null || customer.CustomerBirthday.Equals(filter.CustomerBirthday)));
-                    
-            }
-            return GetAll();
+            return filter != null ? CustomerManagement.Instance.FindAll(customer =>
+                (filter.CustomerId == null || customer.CustomerId.Equals(filter.CustomerId)) &&
+                (filter.CustomerFullName == null || customer.CustomerFullName.ToLower().Trim().Contains(filter.CustomerFullName.ToLower().Trim())) &&
+                (filter.Telephone == null || customer.Telephone.Trim().Contains(filter.Telephone.Trim())) &&
+                (filter.EmailAddress == null || customer.EmailAddress.ToLower().Trim().Contains(filter.EmailAddress.ToLower().Trim())) &&
+                (filter.CustomerBirthday == null || customer.CustomerBirthday.Equals(filter.CustomerBirthday)))
+            : GetAll();
         }
     }
 }

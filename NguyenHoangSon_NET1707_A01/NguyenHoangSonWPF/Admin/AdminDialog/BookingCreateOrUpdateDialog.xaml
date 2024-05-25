@@ -19,26 +19,26 @@
                 <Label Content="Id" x:Name="labelId" Visibility="Collapsed" IsEnabled="False" Style="{StaticResource ResourceKey=labelPrimary}"/>
                 <TextBox x:Name="txtBoxId" Margin="0 0 0 5" Visibility="Collapsed" IsEnabled="False" Style="{StaticResource ResourceKey=textboxPrimary}"/>
 
-                <Label Content="FullName" Style="{StaticResource ResourceKey=labelPrimary}"/>
-                <TextBox x:Name="txtBoxFullName" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+                <Label Content="RoomNumber" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxRoomNumber" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
 
-                <Label Content="Telephone" Style="{StaticResource ResourceKey=labelPrimary}"/>
-                <TextBox x:Name="txtBoxTelephone" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+                <Label Content="RoomDetailDescription" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxRoomDetailDescription" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
 
-                <Label Content="EmailAddress" Style="{StaticResource ResourceKey=labelPrimary}"/>
-                <TextBox x:Name="txtBoxEmailAddress" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+                <Label Content="RoomMaxCapacity" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxRoomMaxCapacity" PreviewTextInput="PreviewTextInput"   Style="{StaticResource ResourceKey=textboxPrimary}" Margin="0 0 0 5"></TextBox>
 
-                <Label Content="Birthday" Style="{StaticResource ResourceKey=labelPrimary}"/>
-                <DatePicker x:Name="txtBoxBirthday" Margin="0 0 0 5" />
+                <Label Content="RoomType" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <ComboBox x:Name="txtBoxRoomTypeId" Margin="0 0 0 5"></ComboBox>
+
+                <Label Content="RoomPricePerDay" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxRoomPricePerDay" PreviewTextInput="CheckDecimalFromInput" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
 
                 <Label Content="Status" x:Name="labelStatus" Visibility="Collapsed" IsEnabled="False" Style="{StaticResource ResourceKey=labelPrimary}" />
                 <ComboBox x:Name="cboStatus" Visibility="Collapsed" IsEnabled="False">
                     <ComboBoxItem IsSelected="True">Active</ComboBoxItem>
                     <ComboBoxItem >Deleted</ComboBoxItem>
                 </ComboBox>
-
-                <Label Content="Password" Style="{StaticResource ResourceKey=labelPrimary}"/>
-                <PasswordBox x:Name="txtBoxPassword" Margin="0 0 0 5"/>
 
                 <Button x:Name="btnCreateOrUpdate" Content="Create" Style="{StaticResource ResourceKey=btnPrimary}" Width="100" Margin="0 10 0 5" Click="Button_Click"></Button>
             </StackPanel>

@@ -14,7 +14,7 @@ namespace BusinessObject.Views
         public string? RoomDetailDescription { get; set; }
         public int? RoomMaxCapacity { get; set; }
         public int? RoomTypeId { get; set; }
-        public byte? RoomStatus { get; set; }
+        public string? RoomStatus { get; set; }
         public decimal? RoomPricePerDay { get; set; }
 
         public RoomTypeView RoomType { get; set; } = null!;

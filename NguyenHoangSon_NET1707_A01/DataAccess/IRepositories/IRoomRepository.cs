@@ -1,4 +1,5 @@
 ﻿using BusinessObject.Models;
+using BusinessObject.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -14,5 +15,6 @@ namespace DataAccess.IRepositories
         void Add(RoomInformation room);
         void Update(RoomInformation room);
         void Delete(RoomInformation room);
+        IEnumerable<RoomInformation> GetAllByFilter(RoomView filter);
     }
 }

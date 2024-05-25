@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,7 +48,7 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
                 labelStatus.Visibility = Visibility.Visible;
                 cboStatus.Visibility = Visibility.Visible;
 
-                btnCreateOrUpdadte.Content = "Update";
+                btnCreateOrUpdate.Content = "Update";
             }
         }
 
@@ -56,37 +57,55 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             if (room != null)
             {
                 // Update
-                Room roomGetById = _roomRepository.GetById(Convert.ToInt32(room.RoomId));
+                RoomInformation roomGetById = _roomRepository.GetById(Convert.ToInt32(room.RoomId));
                 _roomRepository.Update(UpdateRoomFromInput(roomGetById));
             }
             else
             {
-                _roomRepository.Add(UpdateRoomFromInput(new Room()));
+                _roomRepository.Add(UpdateRoomFromInput(new RoomInformation()));
             }
             this.Close();
             _roomManagementPage.RefreshListView();
         }
 
-        private Room UpdateRoomFromInput(Room c)
+        private RoomInformation UpdateRoomFromInput(RoomInformation c)
         {
-            c.RoomFullName = txtBoxFullName.Text;
-            c.Telephone = txtBoxTelephone.Text;
-            c.EmailAddress = txtBoxEmailAddress.Text;
-            c.RoomBirthday = txtBoxBirthday.SelectedDate.Value;
+            c.RoomNumber = txtBoxRoomNumber.Text;
+            c.RoomDetailDescription = txtBoxRoomDetailDescription.Text;
+            c.RoomMaxCapacity = Convert.ToInt32(txtBoxRoomMaxCapacity.Text);
+
+            if(c.RoomTypeId != Convert.ToInt32(txtBoxRoomTypeId.Text))
+            {
+                c.RoomTypeId = Convert.ToInt32(txtBoxRoomTypeId.Text);
+            }
+            
             c.RoomStatus = ShareService.GetStatus(cboStatus.Text);
-            c.Password = txtBoxPassword.Password;
+            c.RoomPricePerDay = Convert.ToDecimal(txtBoxRoomPricePerDay.Text);
+
             return c;
         }
 
         private void LoadRoomInDialog(RoomView view)
         {
-            txtBoxFullName.Text = view.RoomFullName;
-            txtBoxTelephone.Text = view.Telephone;
-            txtBoxEmailAddress.Text = view.EmailAddress;
-            txtBoxBirthday.SelectedDate = view.RoomBirthday;
+            txtBoxRoomNumber.Text = view.RoomNumber;
+            txtBoxRoomDetailDescription.Text = view.RoomDetailDescription;
+            txtBoxRoomMaxCapacity.Text = view.RoomMaxCapacity.ToString();
+            txtBoxRoomTypeId.Text = view.RoomTypeId.ToString();
             cboStatus.Text = view.RoomStatus;
-            txtBoxPassword.Password = view.Password;
+            txtBoxRoomPricePerDay.Text = view.RoomPricePerDay.ToString();
             txtBoxId.Text = view.RoomId.ToString();
+        }
+
+        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void CheckDecimalFromInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^(\d+(\.\d{0,2})?)?$");
+            e.Handled = !regex.IsMatch(e.Text);
         }
     }
 }

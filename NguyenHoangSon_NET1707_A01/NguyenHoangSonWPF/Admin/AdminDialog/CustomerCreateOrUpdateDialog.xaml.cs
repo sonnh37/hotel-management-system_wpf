@@ -50,7 +50,7 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
                 labelStatus.Visibility = Visibility.Visible;
                 cboStatus.Visibility = Visibility.Visible;
 
-                btnCreateOrUpdadte.Content = "Update";
+                btnCreateOrUpdate.Content = "Update";
             }
         }
 
