@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace BusinessObject.Shared
 {
-    public class ServiceProcess
+    public class ShareService
     {
         public static byte GetStatus(string status)
         {
@@ -33,6 +33,15 @@ namespace BusinessObject.Shared
                 return false;
             }
             return true;
+        }
+
+        public static List<string> GetStatuses()
+        {
+            return new List<string>
+            {
+                "Active",
+                "Deleted"
+            };
         }
     }
 }

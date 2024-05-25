@@ -42,7 +42,7 @@
                 <Label Content="Password" Style="{StaticResource ResourceKey=labelPrimary}"/>
                 <PasswordBox x:Name="txtBoxPassword" Margin="0 0 0 5"/>
                 
-                <Button x:Name="btn" Content="Create" Style="{StaticResource ResourceKey=btnPrimary}" Width="100" Margin="0 10 0 5" Click="Button_Click"></Button>
+                <Button x:Name="btnCreateOrUpdadte" Content="Create" Style="{StaticResource ResourceKey=btnPrimary}" Width="100" Margin="0 10 0 5" Click="Button_Click"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

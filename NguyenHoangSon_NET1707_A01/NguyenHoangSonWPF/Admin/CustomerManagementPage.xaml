@@ -40,10 +40,6 @@
                         <Label  Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Birthday"/>
                         <DatePicker Width="200" Height="30" x:Name="searchByBirthday" Margin="0 0 5 0" />
                     </StackPanel>
-                    <StackPanel>
-                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Status"/>
-                        <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByStatus" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
-                    </StackPanel>
                     <Button Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Search">
                         Search
                     </Button>
@@ -65,13 +61,13 @@
             </StackPanel>
 
             <Grid>
-                <ListView MaxHeight="400" x:Name="listView"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Width="auto" Grid.Column="0" SizeChanged="ListView_SizeChanged">
-                    <ListView.ItemContainerStyle>
+                <ListView MaxHeight="400" x:Name="listView"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Width="auto" Grid.Column="0">
+                    <!--<ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
                             <EventSetter Event="Selected" Handler="ListViewItem_Selected"/>
                         </Style>
-                    </ListView.ItemContainerStyle>
+                    </ListView.ItemContainerStyle>-->
                     <ListView.View>
                         <GridView >
                             <GridViewColumn Header="CustomerId" Width="100" DisplayMemberBinding="{Binding Path=CustomerId }"/>

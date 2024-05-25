@@ -30,27 +30,17 @@ namespace NguyenHoangSonWPF.Admin
     public partial class CustomerManagementPage : Page
     {
         private readonly ICustomerRepository customerRepository;
-
+        
         public CustomerManagementPage(ICustomerRepository _customerRepository)
         {
             InitializeComponent();
             this.customerRepository = _customerRepository;
             this.listView.SelectionChanged += ListView_SelectionChanged;
         }
-
+        #region Main
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int count = listView.SelectedItems.Count;
-            if (count > 0)
-            {
-                btnEdit.IsEnabled = true;
-                btnDelete.IsEnabled = true;
-            }
-            else
-            {
-                btnEdit.IsEnabled = false;
-                btnDelete.IsEnabled = false;
-            }
+            SetButtonEnabled(listView.SelectedItems.Count > 0);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -138,19 +128,10 @@ namespace NguyenHoangSonWPF.Admin
 
             dialog.Show();
         }
-
-        private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-
-        }
-
-        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
+#endregion
 
         #region Mapping View, Model + Get ViewFilter 
-        private CustomerView ConvertModelToView(Customer model)
+        public CustomerView ConvertModelToView(Customer model)
         {
             return new CustomerView()
             {
@@ -159,19 +140,19 @@ namespace NguyenHoangSonWPF.Admin
                 Telephone = model.Telephone,
                 EmailAddress = model.EmailAddress,
                 CustomerBirthday = model.CustomerBirthday,
-                CustomerStatus = ServiceProcess.SetStatus((byte)model.CustomerStatus),
+                CustomerStatus = ShareService.SetStatus((byte)model.CustomerStatus),
                 Password = model.Password,
             };
         }
 
-        private Customer ConvertViewToModel(CustomerView view)
+        public Customer ConvertViewToModel(CustomerView view)
         {
             Customer c = customerRepository.GetById(Convert.ToInt32(view.CustomerId));
             c.CustomerFullName = view.CustomerFullName;
             c.Telephone = view.Telephone;
             c.EmailAddress = view.EmailAddress;
             c.CustomerBirthday = view.CustomerBirthday;
-            c.CustomerStatus = ServiceProcess.GetStatus(view.CustomerStatus);
+            c.CustomerStatus = ShareService.GetStatus(view.CustomerStatus);
             c.Password = view.Password;
 
             return c;
@@ -186,16 +167,22 @@ namespace NguyenHoangSonWPF.Admin
                 CustomerFullName = !String.IsNullOrEmpty(searchByFullName.Text) ? searchByFullName.Text : null,
                 Telephone = !String.IsNullOrEmpty(searchByTelephone.Text) ? searchByTelephone.Text : null,
                 CustomerBirthday = searchByBirthday.SelectedDate.HasValue ? searchByBirthday.SelectedDate.Value : null,
-                CustomerStatus = !String.IsNullOrEmpty(searchByStatus.Text) ? searchByStatus.Text : null,
             };
         }
 
         #endregion
 
+        #region other func
         private void PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void SetButtonEnabled(bool enabled)
+        {
+            btnEdit.IsEnabled = enabled;
+            btnDelete.IsEnabled = enabled;
         }
 
         private void ClearFieldsExisting()
@@ -204,8 +191,8 @@ namespace NguyenHoangSonWPF.Admin
             searchByEmail.Clear();
             searchByFullName.Clear();
             searchByTelephone.Clear();
-            searchByStatus.Clear();
             searchByBirthday.SelectedDate = null;
         }
+        #endregion
     }
 }

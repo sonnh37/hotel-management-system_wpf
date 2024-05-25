@@ -29,6 +29,7 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
         private readonly CustomerManagementPage _customerManagementPage;
         private Customer? customer;
 
+
         public CustomerCreateOrUpdateDialog(ICustomerRepository customerRepository, CustomerManagementPage customerManagementPage, Customer? customer)
         {
             InitializeComponent();
@@ -41,20 +42,15 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
         {
             if (customer != null)
             {
-                txtBoxFullName.Text = customer.CustomerFullName;
-                txtBoxTelephone.Text = customer.Telephone;
-                txtBoxEmailAddress.Text = customer.EmailAddress;
-                txtBoxBirthday.SelectedDate = customer.CustomerBirthday;
-                cboStatus.Text = ServiceProcess.SetStatus(customer.CustomerStatus == 1 ? Convert.ToByte(1) : Convert.ToByte(2));
-                txtBoxPassword.Password = customer.Password;
-                txtBoxId.Text = customer.CustomerId.ToString();
+                CustomerView view = _customerManagementPage.ConvertModelToView(customer);
+                LoadCustomerInDialog(view);
+
                 txtBoxId.Visibility = Visibility.Visible;
                 labelId.Visibility = Visibility.Visible;
                 labelStatus.Visibility = Visibility.Visible;
                 cboStatus.Visibility = Visibility.Visible;
 
-                btn.Content = "Update";
-                this.Height = 550;
+                btnCreateOrUpdadte.Content = "Update";
             }
         }
 
@@ -64,27 +60,36 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             {
                 // Update
                 Customer customerGetById = _customerRepository.GetById(Convert.ToInt32(customer.CustomerId));
-                _customerRepository.Update(GetCustomer(customerGetById));
+                _customerRepository.Update(UpdateCustomerFromInput(customerGetById));
             }
             else
             {
-                _customerRepository.Add(GetCustomer(new Customer()));
+                _customerRepository.Add(UpdateCustomerFromInput(new Customer()));
             }
             this.Close();
             _customerManagementPage.RefreshListView();
         }
 
-        
-
-        private Customer GetCustomer(Customer c)
+        private Customer UpdateCustomerFromInput(Customer c)
         {
             c.CustomerFullName = txtBoxFullName.Text;
             c.Telephone = txtBoxTelephone.Text;
             c.EmailAddress = txtBoxEmailAddress.Text;
             c.CustomerBirthday = txtBoxBirthday.SelectedDate.Value;
-            c.CustomerStatus = ServiceProcess.GetStatus(cboStatus.Text);
+            c.CustomerStatus = ShareService.GetStatus(cboStatus.Text);
             c.Password = txtBoxPassword.Password;
             return c;
+        }
+
+        private void LoadCustomerInDialog(CustomerView view)
+        {
+            txtBoxFullName.Text = view.CustomerFullName;
+            txtBoxTelephone.Text = view.Telephone;
+            txtBoxEmailAddress.Text = view.EmailAddress;
+            txtBoxBirthday.SelectedDate = view.CustomerBirthday;
+            cboStatus.Text = view.CustomerStatus;
+            txtBoxPassword.Password = view.Password;
+            txtBoxId.Text = view.CustomerId.ToString();
         }
     }
 }
