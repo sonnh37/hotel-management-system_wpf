@@ -98,7 +98,7 @@ namespace NguyenHoangSonWPF.Admin
                 List<CustomerView> customerViews = listView.SelectedItems.Cast<CustomerView>().ToList();
                 customerViews.ForEach(customerView =>
                 {
-                    CustomerCreateOrUpdateDialog dialog = new CustomerCreateOrUpdateDialog(customerRepository, this, ConvertViewToModel(customerView));
+                    CustomerCreateOrUpdateDialog dialog = new CustomerCreateOrUpdateDialog(customerRepository, this, customerRepository.GetById(Convert.ToInt32(customerView.CustomerId)));
 
                     dialog.Show();
                 });
@@ -115,8 +115,7 @@ namespace NguyenHoangSonWPF.Admin
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 List<CustomerView> views = listView.SelectedItems.Cast<CustomerView>().ToList();
-                views.ForEach(view => view.CustomerStatus = "Deleted");
-                views.ForEach(view => customerRepository.Update(ConvertViewToModel(view)));
+                views.ForEach(view => customerRepository.Update(UpdateCustomerStatusDeleted((int)view.CustomerId)));
 
                 RefreshListView();
             }
@@ -128,7 +127,7 @@ namespace NguyenHoangSonWPF.Admin
 
             dialog.Show();
         }
-#endregion
+        #endregion
 
         #region Mapping View, Model + Get ViewFilter 
         public CustomerView ConvertModelToView(Customer model)
@@ -145,15 +144,10 @@ namespace NguyenHoangSonWPF.Admin
             };
         }
 
-        public Customer ConvertViewToModel(CustomerView view)
+        public Customer UpdateCustomerStatusDeleted(int customerId)
         {
-            Customer c = customerRepository.GetById(Convert.ToInt32(view.CustomerId));
-            c.CustomerFullName = view.CustomerFullName;
-            c.Telephone = view.Telephone;
-            c.EmailAddress = view.EmailAddress;
-            c.CustomerBirthday = view.CustomerBirthday;
-            c.CustomerStatus = ShareService.GetStatus(view.CustomerStatus);
-            c.Password = view.Password;
+            Customer c = customerRepository.GetById(Convert.ToInt32(customerId));
+            c.CustomerStatus = Convert.ToByte(2);
 
             return c;
         }

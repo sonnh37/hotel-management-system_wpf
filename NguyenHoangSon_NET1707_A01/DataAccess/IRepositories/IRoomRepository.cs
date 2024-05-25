@@ -16,5 +16,7 @@ namespace DataAccess.IRepositories
         void Update(RoomInformation room);
         void Delete(RoomInformation room);
         IEnumerable<RoomInformation> GetAllByFilter(RoomView filter);
+        RoomInformation GetById(int id);
+        RoomType GetRoomTypeByRoomId(int roomId);
     }
 }

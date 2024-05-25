@@ -22,14 +22,18 @@ namespace NguyenHoangSonWPF
         private readonly ICustomerRepository customerRepository;
         private readonly IBookingRepository bookingRepository;
         private readonly IRoomRepository roomRepository;
+        private readonly IRoomTypeRepository roomTypeRepository;
         
         public MainWindow(ICustomerRepository _customerRepository, 
-            IBookingRepository _bookingRepository, IRoomRepository _roomRepository)
+            IBookingRepository _bookingRepository, 
+            IRoomRepository _roomRepository,
+            IRoomTypeRepository _roomTypeRepository)
         {
             InitializeComponent();
             this.customerRepository = _customerRepository;
             this.bookingRepository = _bookingRepository;
             this.roomRepository = _roomRepository;
+            this.roomTypeRepository = _roomTypeRepository;
             txtBoxUsername.Text = "admin";
             pwdBoxPassword.Password = "admin";
         }
@@ -51,7 +55,7 @@ namespace NguyenHoangSonWPF
                 {
                     Session.Username = username;
                     this.Hide();
-                    AdminPage adminPage = new AdminPage(this, customerRepository, bookingRepository, roomRepository);
+                    AdminPage adminPage = new AdminPage(this, customerRepository, bookingRepository, roomRepository, roomTypeRepository);
                     adminPage.Show();
                     resetFormLogin();
                 }

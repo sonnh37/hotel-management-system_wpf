@@ -33,6 +33,8 @@ namespace NguyenHoangSonWPF
             services.AddSingleton<ProfileManagementPage>();
             services.AddSingleton<Home>();
             services.AddSingleton<MainWindow>();
+
+            services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();

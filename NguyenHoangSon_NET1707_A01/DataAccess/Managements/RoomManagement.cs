@@ -1,5 +1,7 @@
 ﻿using BusinessObject.Context;
 using BusinessObject.Models;
+using DataAccess.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,6 +100,20 @@ namespace DataAccess.Managements
             {
                 throw new Exception("The room does not exist");
             }
+        }
+
+        public IEnumerable<RoomInformation> GetAll()
+        {
+            var queryable = GetQueryable(model => model.RoomStatus == Convert.ToByte(1));
+            queryable = queryable.Include(model => model.RoomType);
+
+            return queryable.ToList();
+        }
+        public RoomInformation GetById(int id)
+        {
+            var queryable = base.GetQueryable<RoomInformation>();
+
+            return queryable.Where(cus => cus.RoomId == id).SingleOrDefault();
         }
     }
 }

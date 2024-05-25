@@ -32,6 +32,16 @@ namespace DataAccess.Repositories
             RoomManagement.Instance.Update(room);
         }
 
+        public RoomInformation GetById(int id)
+        {
+            return RoomManagement.Instance.GetById(id);
+        }
+
+        public RoomType GetRoomTypeByRoomId(int roomId)
+        {
+            return RoomManagement.Instance.GetById(roomId).RoomType;
+        }
+
         public IEnumerable<RoomInformation> GetAllByFilter(RoomView filter)
         {
             return filter != null ? RoomManagement.Instance.FindAll(room =>

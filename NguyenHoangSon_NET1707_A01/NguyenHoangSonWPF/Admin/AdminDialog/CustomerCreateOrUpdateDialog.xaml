@@ -8,6 +8,7 @@
         Title="CustomerCreateOrUpdateDialog" 
         Height="500" Width="600"
         Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen"
         >
     <Window.Resources>
         <ResourceDictionary Source="../../StyleResource/StyleResource.xaml"></ResourceDictionary>

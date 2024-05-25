@@ -5,8 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NguyenHoangSonWPF.Admin.AdminDialog"
         mc:Ignorable="d"
-        Title="RoomCreateOrUpdateDialog" Height="450" Width="800">
+        Title="RoomCreateOrUpdateDialog" Height="500" Width="600"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary Source="../../StyleResource/StyleResource.xaml"></ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        
+        <StackPanel>
+            <TextBlock Margin="0 10 0 20"  FontWeight="Light" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource ResourceKey=headingPrimary}">
+  Room Control
+            </TextBlock>
+            <StackPanel Background="white" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+                <Label Content="Id" x:Name="labelId" Visibility="Collapsed" IsEnabled="False" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxId" Margin="0 0 0 5" Visibility="Collapsed" IsEnabled="False" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+
+                <Label Content="RoomNumber" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxRoomNumber" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+
+                <Label Content="RoomDetailDescription" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxRoomDetailDescription" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+
+                <Label Content="RoomMaxCapacity" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxRoomMaxCapacity" PreviewTextInput="PreviewTextInput"   Style="{StaticResource ResourceKey=textboxPrimary}" Margin="0 0 0 5"></TextBox>
+
+                <Label Content="RoomType" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <ComboBox x:Name="cboBoxRoomTypeId" Margin="0 0 0 5"></ComboBox>
+
+                <Label Content="RoomPricePerDay" Style="{StaticResource ResourceKey=labelPrimary}"/>
+                <TextBox x:Name="txtBoxRoomPricePerDay" PreviewTextInput="CheckDecimalFromInput" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
+
+                <Label Content="Status" x:Name="labelStatus" Visibility="Collapsed" IsEnabled="False" Style="{StaticResource ResourceKey=labelPrimary}" />
+                <ComboBox x:Name="cboStatus" Visibility="Collapsed" IsEnabled="False">
+                    <ComboBoxItem IsSelected="True">Active</ComboBoxItem>
+                    <ComboBoxItem >Deleted</ComboBoxItem>
+                </ComboBox>
+
+                <Button x:Name="btnCreateOrUpdate" Content="Create" Style="{StaticResource ResourceKey=btnPrimary}" Width="100" Margin="0 10 0 5" Click="Button_Click"></Button>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BusinessObject.Models
 {
-    public partial class RoomType
+    public partial class RoomType : BaseModel
     {
         public RoomType()
         {

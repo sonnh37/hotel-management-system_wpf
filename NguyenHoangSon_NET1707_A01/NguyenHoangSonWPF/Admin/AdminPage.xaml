@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NguyenHoangSonWPF.Admin"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="AdminPage" Height="650" Width="1200">
     <Window.Resources>
         <ResourceDictionary Source="../StyleResource/StyleResource.xaml"></ResourceDictionary>
@@ -12,7 +13,7 @@
     <Grid>
         <DockPanel>
             <Grid DockPanel.Dock="Top" Height="40">
-                <Border Padding="10 0">
+                <Border BorderThickness="1" BorderBrush="Black" Padding="10 0" >
                     <DockPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="../Resource/logo/logo.png" Width="50" Height="30" Margin="0 0 5 0"></Image>
@@ -23,7 +24,7 @@
                 </Border>
             </Grid>
             <Grid DockPanel.Dock="Left" Width="180">
-                <TreeView Name="Menu" BorderThickness="0">
+                <TreeView Name="Menu" BorderThickness="1" BorderBrush="Black">
                     <TreeViewItem Header="Room" IsSelected="True" Style="{StaticResource ResourceKey=treeViewItemMenuPrimary}">
                         <TreeViewItem Header="Room Manager" FontSize="14" Margin="0 10 0 0" MouseDoubleClick="Goto_RoomInformation"/>
                     </TreeViewItem>
@@ -36,8 +37,16 @@
                 </TreeView>
             </Grid>
             <Grid>
-                <Image x:Name="logo" Source="Resource/logo/logo.png" Width="300" Height="200" Margin="358,198,362,197"></Image>
-                <Frame x:Name="frameMain" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="169*"/>
+                    <ColumnDefinition Width="851*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <Image x:Name="logo" Source="Resource/logo/logo.png" Width="300" Height="200" Margin="189,198,362,52" Grid.Column="1"></Image>
+                <Frame x:Name="frameMain" NavigationUIVisibility="Hidden" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
             </Grid>
         </DockPanel>
     </Grid>

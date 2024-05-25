@@ -25,21 +25,26 @@
                         <TextBox PreviewTextInput="PreviewTextInput"  Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchById" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                     </StackPanel>
                     <StackPanel>
-                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Full Name"/>
-                        <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByFullName" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Room Number"/>
+                        <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomNumber" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                     </StackPanel>
                     <StackPanel>
-                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Phone Number"/>
-                        <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByTelephone" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="RoomDetailDescription"/>
+                        <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomDetailDescription" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                     </StackPanel>
                     <StackPanel>
-                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Email"/>
-                        <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByEmail" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Room MaxCapacity"/>
+                        <TextBox PreviewTextInput="PreviewTextInput" Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomMaxCapacity" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                     </StackPanel>
                     <StackPanel>
-                        <Label  Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Birthday"/>
-                        <DatePicker Width="200" Height="30" x:Name="searchByBirthday" Margin="0 0 5 0" />
+                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Room TypeId"/>
+                        <TextBox PreviewTextInput="PreviewTextInput" Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomTypeId" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                     </StackPanel>
+                    <StackPanel>
+                        <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Room PricePerDay"/>
+                        <TextBox PreviewTextInput="CheckDecimalFromInput" Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomPricePerDay" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                    </StackPanel>
+                    
                     <Button Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Search">
                         Search
                     </Button>
@@ -71,11 +76,12 @@
                     <ListView.View>
                         <GridView >
                             <GridViewColumn Header="RoomId" Width="100" DisplayMemberBinding="{Binding Path=RoomId }"/>
-                            <GridViewColumn Header="RoomFullName" Width="200" DisplayMemberBinding="{Binding Path=RoomFullName}"/>
-                            <GridViewColumn Header="Telephone" Width="200" DisplayMemberBinding="{Binding Path=Telephone }"/>
-                            <GridViewColumn Header="EmailAddress" Width="200" DisplayMemberBinding="{Binding Path=EmailAddress}"/>
-                            <GridViewColumn Header="RoomBirthday" Width="150" DisplayMemberBinding="{Binding Path=RoomBirthday}"/>
-                            <GridViewColumn Header="RoomStatus" Width="100" DisplayMemberBinding="{Binding Path=RoomStatus}"/>
+                            <GridViewColumn Header="RoomNumber" Width="100" DisplayMemberBinding="{Binding Path=RoomNumber}"/>
+                            <GridViewColumn Header="Detail Description" Width="250" DisplayMemberBinding="{Binding Path=RoomDetailDescription }"/>
+                            <GridViewColumn Header="Max Capacity" Width="100" DisplayMemberBinding="{Binding Path=RoomMaxCapacity}"/>
+                            <GridViewColumn Header="Room Type Id" Width="100" DisplayMemberBinding="{Binding Path=RoomTypeId}"/>
+                            <GridViewColumn Header="Price/Day" Width="100" DisplayMemberBinding="{Binding Path=RoomPricePerDay}"/>
+                            <GridViewColumn Header="Room Status" Width="100" DisplayMemberBinding="{Binding Path=RoomStatus}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

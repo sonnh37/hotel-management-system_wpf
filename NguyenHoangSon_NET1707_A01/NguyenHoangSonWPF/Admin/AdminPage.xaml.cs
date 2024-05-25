@@ -22,18 +22,24 @@ namespace NguyenHoangSonWPF.Admin
     {
         private readonly ICustomerRepository customerRepository;
         private readonly IBookingRepository bookingRepository;
+
         private readonly IRoomRepository roomRepository;
+        private readonly IRoomTypeRepository roomTypeRepository;
+
         private readonly MainWindow mainWindow;
         public AdminPage(MainWindow _mainWindow,
             ICustomerRepository _customerRepository,
             IBookingRepository _bookingRepository,
-            IRoomRepository _roomRepository)
+            IRoomRepository _roomRepository,
+            IRoomTypeRepository _roomTypeRepository
+            )
         {
             InitializeComponent();
             this.mainWindow = _mainWindow;
             this.customerRepository = _customerRepository;
             this.bookingRepository = _bookingRepository;
             this.roomRepository = _roomRepository;
+            this.roomTypeRepository = _roomTypeRepository;
         }
 
         private void Button_Logout(object sender, RoutedEventArgs e)
@@ -45,7 +51,7 @@ namespace NguyenHoangSonWPF.Admin
         private void Goto_RoomInformation(object sender, MouseButtonEventArgs e)
         {
             logo.Visibility = Visibility.Hidden;
-            RoomManagementPage roomManagementPage = new RoomManagementPage(roomRepository);
+            RoomManagementPage roomManagementPage = new RoomManagementPage(roomRepository, roomTypeRepository);
             frameMain.Content = roomManagementPage;
         }
 
