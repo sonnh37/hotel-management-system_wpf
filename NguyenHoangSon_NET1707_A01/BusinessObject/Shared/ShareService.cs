@@ -21,18 +21,10 @@ namespace BusinessObject.Shared
             return status == Convert.ToByte(1) ? "Active" : "Deleted";
         }
 
-        private bool IsValidInputFields(CustomerView view)
+        public bool IsDecimalFormat(string input)
         {
-            if (string.IsNullOrEmpty(view.CustomerId.ToString()) &&
-                string.IsNullOrEmpty(view.CustomerFullName.ToString()) &&
-                string.IsNullOrEmpty(view.CustomerBirthday.ToString()) &&
-                string.IsNullOrEmpty(view.CustomerStatus.ToString()) &&
-                string.IsNullOrEmpty(view.EmailAddress.ToString()) &&
-                string.IsNullOrEmpty(view.Telephone.ToString()))
-            {
-                return false;
-            }
-            return true;
+            Decimal dummy;
+            return Decimal.TryParse(input, out dummy);
         }
 
         public static List<string> GetStatuses()

@@ -47,20 +47,22 @@ namespace NguyenHoangSonWPF.Admin
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            listView.ItemsSource = null;
             listView.ItemsSource = GetListView();
             ClearFieldsExisting();
         }
 
         public void RefreshListView()
         {
+            listView.ItemsSource = null;
             listView.ItemsSource = GetListView();
             ClearFieldsExisting();
         }
 
         private void Button_Reload(object sender, RoutedEventArgs e)
         {
+            listView.ItemsSource = null;
             listView.ItemsSource = GetListView();
-            // clear
             ClearFieldsExisting();
         }
 
@@ -194,8 +196,8 @@ namespace NguyenHoangSonWPF.Admin
 
         public void CheckDecimalFromInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^(\d+(\.\d{0,2})?)?$");
-            e.Handled = !regex.IsMatch(e.Text);
+            Regex regex = new Regex("^[.][0-9]+$|^[0-9]*[.]{0,1}[0-9]*$");
+            e.Handled = !regex.IsMatch((sender as TextBox).Text.Insert((sender as TextBox).SelectionStart, e.Text));
         }
 
         private void SetButtonEnabled(bool enabled)
