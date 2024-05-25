@@ -82,12 +82,7 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             c.RoomNumber = txtBoxRoomNumber.Text;
             c.RoomDetailDescription = txtBoxRoomDetailDescription.Text;
             c.RoomMaxCapacity = Convert.ToInt32(txtBoxRoomMaxCapacity.Text);
-
-            if (c.RoomTypeId != Convert.ToInt32(cboBoxRoomTypeId.SelectedItem))
-            {
-                c.RoomTypeId = Convert.ToInt32(cboBoxRoomTypeId.SelectedItem);
-            }
-
+            c.RoomTypeId = Convert.ToInt32(cboBoxRoomTypeId.SelectedValue);
             c.RoomStatus = ShareService.GetStatus(cboStatus.Text);
             c.RoomPricePerDay = Convert.ToDecimal(txtBoxRoomPricePerDay.Text);
 
@@ -122,18 +117,6 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             
         }
 
-        private List<string> GetListRoomTypeName()
-        {
-            List<string> typeNames = new List<string>();
-
-            foreach(var item in _roomTypeRepository.GetAll())
-            {
-                typeNames.Add(item.RoomTypeName);
-            }
-
-            return typeNames;
-        }
-        
         private void LoadRoomInDialog(RoomView view)
         {
             txtBoxRoomNumber.Text = view.RoomNumber;
