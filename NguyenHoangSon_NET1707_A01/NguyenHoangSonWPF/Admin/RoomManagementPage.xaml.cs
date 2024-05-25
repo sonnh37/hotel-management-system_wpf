@@ -134,13 +134,7 @@ namespace NguyenHoangSonWPF.Admin
         #region Mapping View, Model + Get ViewFilter 
         public RoomView ConvertModelToView(RoomInformation model)
         {
-            RoomTypeView roomTypeView = new RoomTypeView
-            {
-                RoomTypeId = model.RoomType.RoomTypeId,
-                RoomTypeName = model.RoomType.RoomTypeName,
-                TypeDescription = model.RoomType.TypeDescription,
-                TypeNote = model.RoomType.TypeNote,
-            };
+            RoomTypeView roomTypeView = ConvertModelToViewByRoomType(model.RoomType);
             return new RoomView()
             {
                 RoomId = model.RoomId,
@@ -154,6 +148,18 @@ namespace NguyenHoangSonWPF.Admin
                 RoomType = roomTypeView,
                 // BookingDetails not included as it's commented out in RoomView
             };
+        }
+
+        public RoomTypeView ConvertModelToViewByRoomType(RoomType model)
+        {
+            RoomTypeView roomTypeView = new RoomTypeView
+            {
+                RoomTypeId = model.RoomTypeId,
+                RoomTypeName = model.RoomTypeName,
+                TypeDescription = model.TypeDescription,
+                TypeNote = model.TypeNote,
+            };
+            return roomTypeView;
         }
 
         public RoomInformation UpdateRoomStatusDeleted(int roomId)

@@ -3,6 +3,7 @@ using BusinessObject.Shared;
 using BusinessObject.Views;
 using DataAccess.IRepositories;
 using DataAccess.Repositories;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,11 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
         private readonly IRoomRepository _roomRepository;
         private readonly IRoomTypeRepository _roomTypeRepository;
         private readonly RoomManagementPage _roomManagementPage;
+
         private RoomInformation? room;
+        private RoomView roomView;
+        public List<RoomTypeView> roomTypeViews;
+
         public RoomCreateOrUpdateDialog(IRoomRepository roomRepository, IRoomTypeRepository roomTypeRepository, RoomManagementPage roomManagementPage, RoomInformation roomInformation)
         {
             InitializeComponent();
@@ -42,9 +47,9 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
         {
             if (room != null)
             {
-                RoomView view = _roomManagementPage.ConvertModelToView(room);
-                LoadRoomStatusInDialog(view);
-                LoadRoomInDialog(view);
+                roomView = _roomManagementPage.ConvertModelToView(room);
+                
+                LoadRoomInDialog(roomView);
 
                 txtBoxId.Visibility = Visibility.Visible;
                 labelId.Visibility = Visibility.Visible;
@@ -53,6 +58,7 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
 
                 btnCreateOrUpdate.Content = "Update";
             }
+            LoadRoomTypeInDialog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -88,14 +94,32 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             return c;
         }
 
-        private void LoadRoomStatusInDialog(RoomView view)
+        private void LoadRoomTypeInDialog()
         {
-            cboBoxRoomTypeId.ItemsSource = GetListRoomTypeName();
-
-            if (view.RoomTypeId.HasValue)
+            // Convert RoomType To RoomTypeView
+            IEnumerable<RoomType> roomTypes = _roomTypeRepository.GetAll();
+            roomTypeViews = new List<RoomTypeView>();
+            foreach (var roomType in roomTypes)
             {
-                cboBoxRoomTypeId. = view.RoomType.RoomTypeName;
+                roomTypeViews.Add(_roomManagementPage.ConvertModelToViewByRoomType(roomType));
             }
+
+            cboBoxRoomTypeId.ItemsSource = roomTypeViews;
+            cboBoxRoomTypeId.DisplayMemberPath = "RoomTypeName";
+            cboBoxRoomTypeId.SelectedValuePath = "RoomTypeId";
+
+            // Set select default of room type from room to UPDATE
+            if(roomView != null)
+            {
+                foreach (var roomTypeView in roomTypeViews)
+                {
+                    if (roomTypeView.RoomTypeId == roomView.RoomType.RoomTypeId)
+                    {
+                        cboBoxRoomTypeId.SelectedValue = roomTypeView.RoomTypeId;
+                    }
+                }
+            }
+            
         }
 
         private List<string> GetListRoomTypeName()
