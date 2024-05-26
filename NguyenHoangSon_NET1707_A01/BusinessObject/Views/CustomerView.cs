@@ -16,6 +16,5 @@ namespace BusinessObject.Views
         public DateTime? CustomerBirthday { get; set; }
         public string? CustomerStatus { get; set; }
         public string? Password { get; set; }
-        //public IList<BookingReservation> BookingReservations { get; set; }
     }
 }

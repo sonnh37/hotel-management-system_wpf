@@ -91,7 +91,6 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
 
         private void LoadRoomTypeInDialog()
         {
-            // Convert RoomType To RoomTypeView
             IEnumerable<RoomType> roomTypes = _roomTypeRepository.GetAll();
             roomTypeViews = new List<RoomTypeView>();
             foreach (var roomType in roomTypes)
@@ -103,7 +102,6 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             cboBoxRoomTypeId.DisplayMemberPath = "RoomTypeName";
             cboBoxRoomTypeId.SelectedValuePath = "RoomTypeId";
 
-            // Set select default of room type from room to UPDATE
             if(roomView != null)
             {
                 foreach (var roomTypeView in roomTypeViews)

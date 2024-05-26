@@ -39,8 +39,8 @@ namespace NguyenHoangSonWPF
             this.bookingRepository = _bookingRepository;
             this.roomRepository = _roomRepository;
             this.roomTypeRepository = _roomTypeRepository;
-            txtBoxUsername.Text = "tramy@gmail.com";
-            pwdBoxPassword.Password = "123123";
+            txtBoxUsername.Text = "admin@FUMiniHotelSystem.com";
+            pwdBoxPassword.Password = "@@abc123@@";
         }
 
         public void resetFormLogin()

@@ -27,7 +27,7 @@ namespace NguyenHoangSonWPF.Customers
         private readonly IBookingDetailRepository bookingDetailRepository;
         private readonly Home home;
 
-        public CartPage(Home _home,Customer customer, IBookingRepository _bookingRepository, IRoomRepository _roomRepository, IBookingDetailRepository _bookingDetailRepository)
+        public CartPage(Home _home, Customer customer, IBookingRepository _bookingRepository, IRoomRepository _roomRepository, IBookingDetailRepository _bookingDetailRepository)
         {
             InitializeComponent();
             this.bookingRepository = _bookingRepository;
@@ -55,13 +55,22 @@ namespace NguyenHoangSonWPF.Customers
 
         private void Button_Remove(object sender, RoutedEventArgs e)
         {
-            if(sender is Button button)
+            if (sender is Button button)
             {
                 RoomInformation room = Session.carts.Where(cart => cart.RoomId == (int)button.Tag).SingleOrDefault();
                 if (room != null)
                 {
-                    Session.carts.Remove(room);
-                    UpdateCarts();
+                    MessageBoxResult result = MessageBox.Show(
+                        "Are you sure you want to remove this room from the cart?",
+                        "Confirm Removal",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Session.carts.Remove(room);
+                        UpdateCarts();
+                    }
                 }
             }
         }
@@ -80,38 +89,49 @@ namespace NguyenHoangSonWPF.Customers
             List<BookingDetail> bookingDetails = new List<BookingDetail>();
 
             // set bookingDetails and update price total bookingReservation
-            if(txtStartDate.SelectedDate.HasValue && txtEndDate.SelectedDate.HasValue)
+
+            if (Session.carts.Count() > 0)
             {
-                if(Session.carts.Count() > 0)
+                if (txtStartDate.SelectedDate.HasValue && txtEndDate.SelectedDate.HasValue)
                 {
-                    foreach (RoomInformation room in Session.carts)
+                    MessageBoxResult result = MessageBox.Show(
+                        "Are you sure you want to proceed with the checkout?",
+                        "Confirm Checkout",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
                     {
-                        bookingDetails.Add(GetBookingDetail(bookingReservation.BookingReservationId
-                            , room, txtStartDate.SelectedDate.Value, txtEndDate.SelectedDate.Value));
-                        bookingReservation.TotalPrice += room.RoomPricePerDay;
+                        foreach (RoomInformation room in Session.carts)
+                        {
+                            bookingDetails.Add(GetBookingDetail(bookingReservation.BookingReservationId
+                                , room, txtStartDate.SelectedDate.Value, txtEndDate.SelectedDate.Value));
+                            bookingReservation.TotalPrice += room.RoomPricePerDay;
+                        }
+
+                        bookingRepository.Add(bookingReservation);
+
+                        foreach (BookingDetail bookingDetail in bookingDetails)
+                        {
+                            bookingDetailRepository.Add(bookingDetail);
+                        }
+
+                        Session.carts = new List<RoomInformation>();
+                        UpdateCarts();
+
+                        MessageBox.Show("Booking successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-
-                    bookingRepository.Add(bookingReservation);
-                    
-                    foreach(BookingDetail bookingDetail in bookingDetails)
-                    {
-                        bookingDetailRepository.Add(bookingDetail);
-                    }
-
-                    Session.carts = new List<RoomInformation>();
-                    UpdateCarts();
-
-                    MessageBox.Show("Booking successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Pls add more room", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Pls select Start and End Date", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                MessageBox.Show("Pls select Start and End Date", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Pls add more room", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
         }
 
         private BookingReservation GetBookingReservation()

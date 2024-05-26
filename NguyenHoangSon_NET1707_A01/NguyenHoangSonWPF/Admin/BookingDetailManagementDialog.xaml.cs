@@ -90,25 +90,6 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             listView.ItemsSource = views;
         }
 
-        private void Button_Edit(object sender, RoutedEventArgs e)
-        {
-            int count = listView.SelectedItems.Count;
-            if (count > 0)
-            {
-                List<BookingView> bookingViews = listView.SelectedItems.Cast<BookingView>().ToList();
-                bookingViews.ForEach(bookingView =>
-                {
-                    //BookingCreateOrUpdateDialog dialog = new BookingCreateOrUpdateDialog(bookingRepository, this, bookingRepository.GetById(Convert.ToInt32(bookingView.BookingReservationId)));
-
-                    //dialog.Show();
-                });
-            }
-            else
-            {
-                MessageBox.Show("Please select customer");
-            }
-        }
-
         private void Button_Delete(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Do you wan't remove customer seledted?", "Remove customer", MessageBoxButton.YesNo);
@@ -121,12 +102,6 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             }
         }
 
-        private void Button_OpenCreate(object sender, RoutedEventArgs e)
-        {
-            //BookingCreateOrUpdateDialog dialog = new BookingCreateOrUpdateDialog(bookingRepository, this, null);
-
-            //dialog.Show();
-        }
         #endregion
 
         #region Mapping View, Model + Get ViewFilter 
@@ -158,7 +133,6 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
 
         private void SetButtonEnabled(bool enabled)
         {
-            btnEdit.IsEnabled = enabled;
             btnDelete.IsEnabled = enabled;
         }
 

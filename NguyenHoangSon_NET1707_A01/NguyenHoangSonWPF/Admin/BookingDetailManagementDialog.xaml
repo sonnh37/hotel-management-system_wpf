@@ -39,12 +39,6 @@
                     <Button x:Name="btnDelete" IsEnabled="False" Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Right" Margin="0 0 10 0" Click="Button_Delete">
                         Delete
                     </Button>
-                    <Button x:Name="btnEdit" IsEnabled="False" Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Right" Margin="0 0 10 0" Click="Button_Edit">
-                        Edit
-                    </Button>
-                    <Button Style="{StaticResource ResourceKey=btnPrimary}" x:Name="btnAddNew" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Right" Margin="0 0 0 0" Click="Button_OpenCreate">
-                        Add New
-                    </Button>
                 </StackPanel>
             </StackPanel>
 

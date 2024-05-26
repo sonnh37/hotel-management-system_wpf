@@ -131,7 +131,7 @@ namespace DataAccess.Managements
         public IQueryable<T> GetQueryable<T>()
             where T : BaseModel
         {
-            IQueryable<T> queryable = GetDbSet<T>(); // like DbSet in this
+            IQueryable<T> queryable = GetDbSet<T>();
             return queryable;
 
         }

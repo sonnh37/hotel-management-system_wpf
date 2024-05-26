@@ -18,6 +18,5 @@ namespace BusinessObject.Views
         public decimal? RoomPricePerDay { get; set; }
 
         public RoomTypeView RoomType { get; set; } = null!;
-        //public virtual ICollection<BookingDetail> BookingDetails { get; set; }
     }
 }

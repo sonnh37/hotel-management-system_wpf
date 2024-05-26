@@ -69,6 +69,9 @@
                                 Search
                             </Button>
                         </StackPanel>
+                        <StackPanel Margin="10 200">
+                            <Button Content="Logout"  BorderThickness="0" Width="50" HorizontalAlignment="Right" Click="Button_Logout"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
             </Grid>
