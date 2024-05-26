@@ -47,5 +47,11 @@ namespace DataAccess.Repositories
                 (filter.CustomerBirthday == null || customer.CustomerBirthday.Equals(filter.CustomerBirthday)))
             : GetAll();
         }
+
+        public Customer FindByEmailAndPassword(string email, string password)
+        {
+            return CustomerManagement.Instance.FindOne(customer =>
+            customer.EmailAddress.ToLower().Trim().Equals(email) && customer.Password.Equals(password));
+        }
     }
 }

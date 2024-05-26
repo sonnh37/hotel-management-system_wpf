@@ -16,6 +16,7 @@ namespace DataAccess.IRepositories
         void Update(Customer customer);
         void Delete(Customer customer);
         Customer GetById(int id);
-        IEnumerable<Customer> GetAllByFilter(CustomerView customerViewFilter); 
+        IEnumerable<Customer> GetAllByFilter(CustomerView customerViewFilter);
+        Customer FindByEmailAndPassword(string email, string password);
     }
 }

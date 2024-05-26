@@ -50,35 +50,36 @@ namespace NguyenHoangSonWPF
 
         private void OnLogin(object sender, RoutedEventArgs e)
         {
-            string username = txtBoxUsername.Text.ToString();
+            string email = txtBoxUsername.Text.ToString();
             string password = pwdBoxPassword.Password.ToString();
             var account = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("account");
-            if (!String.IsNullOrEmpty(username) && !String.IsNullOrEmpty(password))
+            if (!String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(password))
             {
-                if (username.Equals(account["username"]) && password.Equals(account["password"]))
+                var customer = customerRepository.FindByEmailAndPassword(email, password);
+                if (email.Equals(account["email"]) && password.Equals(account["password"]))
                 {
-                    Session.Username = username;
+                    Session.Username = email;
                     this.Hide();
                     AdminPage adminPage = new AdminPage(this, customerRepository, bookingRepository, bookingDetailRepository, roomRepository, roomTypeRepository);
                     adminPage.Show();
                     resetFormLogin();
                 }
-                else //if (memberRepository.FindByEmailAndPassword(username, password) != null)
+                else if ( customer != null)
                 {
-                    Session.Username = username;
+                    Session.Username = email;
                     this.Hide();
-                    Home home = new Home(this, customerRepository, bookingRepository, roomRepository);
+                    Home home = new Home(this, customerRepository, bookingRepository, roomRepository, bookingDetailRepository, customer);
                     home.Show();
                     resetFormLogin();
                 }
-                //else
-                //{
-                //    MessageBox.Show("Please enter username and password");
-                //}
+                else
+                {
+                    MessageBox.Show("Wrong email or password");
+                }
             }
             else
             {
-                MessageBox.Show("Please enter username and password");
+                MessageBox.Show("Please enter email and password");
             }
         }
     }

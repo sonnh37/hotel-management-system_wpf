@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NguyenHoangSonWPF"
         mc:Ignorable="d"
+        Loaded="Page_Loaded"
         Title="Home" Height="650" Width="1200">
     <Window.Resources>
         <ResourceDictionary Source="./StyleResource/StyleResource.xaml"></ResourceDictionary>
@@ -15,23 +16,13 @@
                 <Border Padding="10 0">
                     <DockPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Image Source="Resource/logo/logo.png" Width="50" Height="30" Margin="0 0 5 0"></Image>
+                            <Image Source="./Resource/logo/logo.png" Width="50" Height="30" Margin="0 0 5 0"></Image>
                         </StackPanel>
                         <Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" >
+                                <Button Click="Button_OpenMyOrder" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="20 0 0 0" >
                                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Image Source="Resource/icon/shopping-cart.png" Height="30" Width="30"></Image>
-                                        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30 0 0 0">
-                                            <Border CornerRadius="10" Background="OrangeRed" Padding="6 2">
-                                                <TextBlock x:Name="CartCount" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">0</TextBlock>
-                                            </Border>
-                                        </Grid>
-                                    </Grid>
-                                </Button>
-                                <Button HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="20 0 0 0" >
-                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Image Source="Resource/icon/history.png" Height="30" Width="30"></Image>
+                                        <Image Source="./Resource/icon/history.png" Height="30" Width="30"></Image>
                                     </Grid>
                                 </Button>
                             </StackPanel>
@@ -71,34 +62,36 @@
                     <Grid>
                         <ScrollViewer Grid.Column="1" Grid.Row="1" Background="#FFF1F1F1" Height="600">
                             <StackPanel>
-                                <TextBlock Text="Products" Margin="10" FontSize="22" FontWeight="Medium"/>
+                                <TextBlock Text="Rooms" Margin="10" FontSize="22" FontWeight="Medium"/>
                                 <StackPanel Margin="20 0">
                                     <ItemsControl x:Name="ListProduct">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Border Margin="10" Width="110">
+                                                <Border Margin="10 20" Width="250">
                                                     <StackPanel>
-                                                        <Border Width="100" Height="100" CornerRadius="5" Margin="5">
-                                                            <Border.Effect>
-                                                                <DropShadowEffect ShadowDepth="1"/>
-                                                            </Border.Effect>
-                                                            <Border.Background>
-                                                                <ImageBrush ImageSource="Resource\images\iphone.png"/>
-                                                            </Border.Background>
-                                                        </Border>
-                                                        <TextBlock Margin="5" Text="{Binding UnitPrice, StringFormat={}{0:C}}" FontSize="17" FontFamily="Franklin Gothic Medium"/>
-                                                        <TextBlock Margin="5 0" Text="{Binding ProductName}" FontSize="20"/>
                                                         <StackPanel Margin="5 0" Orientation="Horizontal">
-                                                            <TextBlock FontSize="15">Weight:</TextBlock>
-                                                            <TextBlock Margin="5 0" Text="{Binding Weight}" FontSize="15"/>
+                                                            <TextBlock FontSize="15">Room#: </TextBlock>
+                                                            <TextBlock Margin="5 0" Text="{Binding RoomNumber}" FontSize="15"/>
                                                         </StackPanel>
-                                                        <StackPanel Margin="5 0" Orientation="Horizontal">
-                                                            <TextBlock FontSize="15">UnitsInStock:</TextBlock>
-                                                            <TextBlock Text="{Binding UnitsInStock}" FontSize="15"/>
+
+                                                        <TextBlock Margin="5" Text="{Binding RoomPricePerDay, StringFormat={}{0:C}/day}" FontSize="17" FontFamily="Franklin Gothic Medium"/>
+                                                        <DockPanel>
+                                                            <TextBlock TextWrapping="Wrap" Margin="5 0" Text="{Binding RoomDetailDescription}" FontSize="13"/>
+                                                        </DockPanel>
+                                                        <StackPanel Margin="3 5 2 5" Orientation="Horizontal">
+                                                            <TextBlock FontSize="15">MaxCapacity: </TextBlock>
+                                                            <TextBlock Margin="5 0" Text="{Binding RoomMaxCapacity}" FontSize="15"/>
                                                         </StackPanel>
+                                                        <StackPanel Margin="5 2" Orientation="Horizontal">
+                                                            <TextBlock FontSize="15">Type: </TextBlock>
+                                                            <TextBlock Margin="5 0" Text="{Binding RoomTypeId}" FontSize="15"/>
+                                                        </StackPanel>
+
+                                                        <TextBlock Margin="5 5" Text="Active" Foreground="Green" FontSize="20"/>
+
                                                         <Button 
-                                                            Tag="{Binding ProductId}"
-                                                            Style="{StaticResource ResourceKey=btnPrimary}">Buy</Button>
+                                                            Tag="{Binding RoomId}"
+                                                            Style="{StaticResource ResourceKey=btnPrimary}">Order</Button>
                                                     </StackPanel>
                                                 </Border>
                                             </DataTemplate>

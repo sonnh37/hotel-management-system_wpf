@@ -215,6 +215,7 @@ namespace NguyenHoangSonWPF.Admin
         {
             btnEdit.IsEnabled = enabled;
             btnDelete.IsEnabled = enabled;
+            btnBookingDetail.IsEnabled = enabled;
         }
 
         private void ClearFieldsExisting()

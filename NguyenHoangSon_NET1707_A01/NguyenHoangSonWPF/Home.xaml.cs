@@ -1,5 +1,7 @@
 ﻿using BusinessObject.Models;
 using DataAccess.IRepositories;
+using NguyenHoangSonWPF.Admin;
+using NguyenHoangSonWPF.Admin.AdminDialog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,23 +26,32 @@ namespace NguyenHoangSonWPF
         private readonly ICustomerRepository customerRepository;
         private readonly IBookingRepository bookingRepository;
         private readonly IRoomRepository roomRepository;
+        private readonly IBookingDetailRepository bookingDetailRepository;
+        private readonly BookingManagementPage bookingManagementPage;
         private readonly MainWindow mainWindow;
-        public Home()
-        {
-            InitializeComponent();
-        }
+        private Customer customer;
+
         public Home(MainWindow _mainWindow,
             ICustomerRepository _customerRepository,
             IBookingRepository _bookingRepository,
-            IRoomRepository _roomRepository)
+            IRoomRepository _roomRepository,
+            IBookingDetailRepository _bookingDetailRepository,
+            Customer _customer
+            )
         {
+            InitializeComponent();
             this.mainWindow = _mainWindow;
             this.customerRepository = _customerRepository;
             this.bookingRepository = _bookingRepository;
             this.roomRepository = _roomRepository;
-            //ListProduct.ItemsSource = productRepository.GetAll();
-            //Session.carts = new List<BookingDetail>();
-            //UpdateCartQuantity();
+            this.bookingDetailRepository = _bookingDetailRepository;
+            this.customer = _customer;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ListProduct.ItemsSource = roomRepository.GetAll();
+            Session.carts = new List<BookingDetail>();
         }
 
         private void Home_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
@@ -48,9 +59,15 @@ namespace NguyenHoangSonWPF
             mainWindow.Show();
         }
 
-        public void UpdateCartQuantity()
+        private void Button_OpenMyOrder(object sender, RoutedEventArgs e)
         {
-            //CartCount.Text = Session.carts.Sum(product => product.Quantity).ToString();
+            BookingDetailManagement bookingDetailManagement = new BookingDetailManagement(
+                bookingRepository, bookingDetailRepository, 
+                new BookingManagementPage(bookingRepository, bookingDetailRepository, 
+                    new CustomerManagementPage(customerRepository)), 
+                new BookingReservation { Customer = customer});
         }
+
+
     }
 }

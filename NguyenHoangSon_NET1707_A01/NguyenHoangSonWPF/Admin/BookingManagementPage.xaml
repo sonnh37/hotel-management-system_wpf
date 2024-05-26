@@ -42,7 +42,7 @@
                     <Button x:Name="btnReload" Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Right" Margin="0 0 10 0" Click="Button_Reload">
                         Reload
                     </Button>
-                    <Button x:Name="btnBookingDetail" Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Right" Margin="0 0 10 0" Click="Button_BookingDetail">
+                    <Button x:Name="btnBookingDetail" IsEnabled="False" Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Right" Margin="0 0 10 0" Click="Button_BookingDetail">
                         Detail
                     </Button>
                     <Button x:Name="btnDelete" IsEnabled="False" Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Right" Margin="0 0 10 0" Click="Button_Delete">
