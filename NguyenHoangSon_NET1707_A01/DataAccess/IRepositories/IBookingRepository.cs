@@ -17,5 +17,6 @@ namespace DataAccess.IRepositories
         void Delete(BookingReservation booking);
         BookingReservation GetById(int id);
         IEnumerable<BookingReservation> GetAllByFilter(BookingView filter);
+        IEnumerable<BookingReservation> FindAllByCustomerId(int customerId);
     }
 }

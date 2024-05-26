@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
+    using System.Linq.Expressions;
     public class BookingRepository : IBookingRepository
     {
         public void Add(BookingReservation booking)
@@ -43,6 +44,11 @@ namespace DataAccess.Repositories
                 (filter.CustomerId == null || BookingReservation.CustomerId == filter.CustomerId) &&
                 (filter.BookingDate == null || BookingReservation.BookingDate.Equals(filter.BookingDate)))
             : GetAll();
+        }
+
+        public IEnumerable<BookingReservation> FindAllByCustomerId(int customerId)
+        {
+            return BookingManagement.Instance.FindAll(model => model.CustomerId == customerId);
         }
     }
 }

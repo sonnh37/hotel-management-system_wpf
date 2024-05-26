@@ -83,10 +83,12 @@ namespace DataAccess.Managements
 
         public IEnumerable<BookingReservation> FindAll(Expression<Func<BookingReservation, bool>> predicate)
         {
-            List<BookingReservation> bookings = new List<BookingReservation>();
-            bookings = base.GetAll(predicate);
+            var queryable = GetQueryable(predicate);
+            queryable = queryable.Where(model => model.BookingStatus == Convert.ToByte(1));
+            queryable = queryable.Include(model => model.Customer);
+            queryable = queryable.Include(model => model.BookingDetails);
 
-            return bookings;
+            return queryable;
         }
 
         public IEnumerable<BookingReservation> GetAll()

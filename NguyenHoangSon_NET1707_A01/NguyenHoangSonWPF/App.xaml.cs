@@ -2,6 +2,7 @@
 using DataAccess.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using NguyenHoangSonWPF.Admin;
+using NguyenHoangSonWPF.Admin.AdminDialog;
 using NguyenHoangSonWPF.Customers;
 using System.Configuration;
 using System.Data;
@@ -29,8 +30,16 @@ namespace NguyenHoangSonWPF
             services.AddSingleton<CustomerManagementPage>();
             services.AddSingleton<RoomManagementPage>();
             services.AddSingleton<BookingManagementPage>();
+            services.AddSingleton<BookingDetailManagement>();
             services.AddSingleton<HistoryBookingManagementPage>();
             services.AddSingleton<ProfileManagementPage>();
+            
+            services.AddSingleton<BookingCreateOrUpdateDialog>();
+            services.AddSingleton<CustomerCreateOrUpdateDialog>();
+            services.AddSingleton<RoomCreateOrUpdateDialog>();
+
+            services.AddSingleton<BookingReservationDateDialog>();
+
             services.AddSingleton<Home>();
             services.AddSingleton<MainWindow>();
 

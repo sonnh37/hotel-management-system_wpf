@@ -2,6 +2,7 @@
 using DataAccess.IRepositories;
 using NguyenHoangSonWPF.Admin;
 using NguyenHoangSonWPF.Admin.AdminDialog;
+using NguyenHoangSonWPF.Customers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,6 @@ namespace NguyenHoangSonWPF
         private readonly IBookingRepository bookingRepository;
         private readonly IRoomRepository roomRepository;
         private readonly IBookingDetailRepository bookingDetailRepository;
-        private readonly BookingManagementPage bookingManagementPage;
         private readonly MainWindow mainWindow;
         private Customer customer;
 
@@ -68,6 +68,16 @@ namespace NguyenHoangSonWPF
                 new BookingReservation { Customer = customer});
         }
 
-
+        private void Button_Order(object sender, RoutedEventArgs e)
+        {
+            // open 
+            
+            if (sender is Button button)
+            {
+                BookingReservationDateDialog booking = new BookingReservationDateDialog((int)button.Tag, customer, bookingRepository, roomRepository, bookingDetailRepository);
+                booking.Show();
+                
+            }
+        }
     }
 }
