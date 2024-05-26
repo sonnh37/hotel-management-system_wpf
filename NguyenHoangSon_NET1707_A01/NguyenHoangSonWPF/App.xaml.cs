@@ -36,7 +36,10 @@ namespace NguyenHoangSonWPF
 
             services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
+
             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IBookingDetailRepository, BookingDetailRepository>();
+
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         }

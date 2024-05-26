@@ -1,4 +1,5 @@
 ﻿using BusinessObject.Models;
+using BusinessObject.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -14,5 +15,7 @@ namespace DataAccess.IRepositories
         void Add(BookingReservation booking);
         void Update(BookingReservation booking);
         void Delete(BookingReservation booking);
+        BookingReservation GetById(int id);
+        IEnumerable<BookingReservation> GetAllByFilter(BookingView filter);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessObject.Models;
+using BusinessObject.Views;
 using DataAccess.IRepositories;
 using DataAccess.Managements;
 using System;
@@ -29,6 +30,19 @@ namespace DataAccess.Repositories
         public void Update(BookingReservation booking)
         {
             BookingManagement.Instance.Update(booking);
+        }
+        public BookingReservation GetById(int id)
+        {
+            return BookingManagement.Instance.GetById(id);
+        }
+
+        public IEnumerable<BookingReservation> GetAllByFilter(BookingView filter)
+        {
+            return filter != null ? BookingManagement.Instance.FindAll(BookingReservation =>
+                (filter.BookingReservationId == null || BookingReservation.BookingReservationId.Equals(filter.BookingReservationId)) &&
+                (filter.CustomerId == null || BookingReservation.CustomerId == filter.CustomerId) &&
+                (filter.BookingDate == null || BookingReservation.BookingDate.Equals(filter.BookingDate)))
+            : GetAll();
         }
     }
 }

@@ -29,7 +29,7 @@
                         <TreeViewItem Header="Room Manager" FontSize="14" Margin="0 10 0 0" MouseDoubleClick="Goto_RoomInformation"/>
                     </TreeViewItem>
                     <TreeViewItem Header="Booking" IsSelected="True" Style="{StaticResource ResourceKey=treeViewItemMenuPrimary}">
-                        <TreeViewItem Header="List Booking Reservations" FontSize="14"  Margin="0 10 0 0"  MouseDoubleClick="Goto_BookingReservation"/>
+                        <TreeViewItem Header="Booking Manager" FontSize="14"  Margin="0 10 0 0"  MouseDoubleClick="Goto_BookingReservation"/>
                     </TreeViewItem>
                     <TreeViewItem Header="Customer" IsSelected="True" Style="{StaticResource ResourceKey=treeViewItemMenuPrimary}">
                         <TreeViewItem Header="Customer Manager" FontSize="14"  Margin="0 10 0 0"  MouseDoubleClick="Goto_Customer"/>

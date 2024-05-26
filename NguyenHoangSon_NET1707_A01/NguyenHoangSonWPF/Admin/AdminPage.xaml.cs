@@ -21,7 +21,9 @@ namespace NguyenHoangSonWPF.Admin
     public partial class AdminPage : Window
     {
         private readonly ICustomerRepository customerRepository;
+
         private readonly IBookingRepository bookingRepository;
+        private readonly IBookingDetailRepository bookingDetailRepository;
 
         private readonly IRoomRepository roomRepository;
         private readonly IRoomTypeRepository roomTypeRepository;
@@ -30,6 +32,7 @@ namespace NguyenHoangSonWPF.Admin
         public AdminPage(MainWindow _mainWindow,
             ICustomerRepository _customerRepository,
             IBookingRepository _bookingRepository,
+            IBookingDetailRepository _bookingDetailRepository,
             IRoomRepository _roomRepository,
             IRoomTypeRepository _roomTypeRepository
             )
@@ -38,6 +41,7 @@ namespace NguyenHoangSonWPF.Admin
             this.mainWindow = _mainWindow;
             this.customerRepository = _customerRepository;
             this.bookingRepository = _bookingRepository;
+            this.bookingDetailRepository = _bookingDetailRepository;
             this.roomRepository = _roomRepository;
             this.roomTypeRepository = _roomTypeRepository;
         }
@@ -58,8 +62,8 @@ namespace NguyenHoangSonWPF.Admin
         private void Goto_BookingReservation(object sender, MouseButtonEventArgs e)
         {
             logo.Visibility = Visibility.Hidden;
-            BookingManagementPage bookingManagement = new BookingManagementPage(bookingRepository);
-            frameMain.Content = bookingRepository;
+            BookingManagementPage bookingManagement = new BookingManagementPage(bookingRepository, bookingDetailRepository, new CustomerManagementPage(customerRepository));
+            frameMain.Content = bookingManagement;
         }
 
         private void Goto_Customer(object sender, MouseButtonEventArgs e)

@@ -91,10 +91,11 @@ namespace DataAccess.Managements
 
         public IEnumerable<BookingReservation> GetAll()
         {
-            List<BookingReservation> bookings = new List<BookingReservation>();
-            bookings = base.GetAll();
+            var queryable = GetQueryable(model => model.BookingStatus == Convert.ToByte(1));
+            queryable = queryable.Include(model => model.Customer);
+            queryable = queryable.Include(model => model.BookingDetails);
 
-            return bookings;
+            return queryable.ToList();
         }
 
         public void Update(BookingReservation booking)
@@ -109,6 +110,12 @@ namespace DataAccess.Managements
             {
                 throw new Exception("The booking does not exist");
             }
+        }
+        public BookingReservation GetById(int id)
+        {
+            var queryable = base.GetQueryable<BookingReservation>();
+
+            return queryable.Where(cus => cus.BookingReservationId == id).SingleOrDefault();
         }
     }
 }
