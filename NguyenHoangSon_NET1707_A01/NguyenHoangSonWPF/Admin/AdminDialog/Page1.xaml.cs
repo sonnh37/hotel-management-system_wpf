@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NguyenHoangSonWPF.Customers
+namespace NguyenHoangSonWPF.Admin.AdminDialog
 {
     /// <summary>
-    /// Interaction logic for HistoryBookingManagementPage.xaml
+    /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class HistoryBookingManagementPage : Page
+    public partial class Page1 : Page
     {
-        public HistoryBookingManagementPage()
+        public Page1()
         {
             InitializeComponent();
         }

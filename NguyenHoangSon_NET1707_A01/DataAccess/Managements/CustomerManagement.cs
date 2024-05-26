@@ -70,7 +70,9 @@ namespace DataAccess.Managements
             Customer customer = null;
             try
             {
-                customer = _context.Customers.SingleOrDefault(predicate);
+                var queryable = base.GetQueryable(predicate);
+                queryable = queryable.Include(model => model.BookingReservations);
+                customer = queryable.FirstOrDefault();
             }
             catch (Exception e)
             {

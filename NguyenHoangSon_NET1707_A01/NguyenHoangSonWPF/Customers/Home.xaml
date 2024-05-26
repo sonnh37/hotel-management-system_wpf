@@ -21,7 +21,17 @@
                         </StackPanel>
                         <Grid>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Click="Button_OpenMyOrder" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="20 0 0 0" >
+                                <Button HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Click="Button_OpenOrder">
+                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Source="../Resource/icon/shopping-cart.png" Height="30" Width="30"></Image>
+                                        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30 0 0 0">
+                                            <Border CornerRadius="10" Background="OrangeRed" Padding="6 2">
+                                                <TextBlock x:Name="CartCount" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">0</TextBlock>
+                                            </Border>
+                                        </Grid>
+                                    </Grid>
+                                </Button>
+                                <Button Click="Button_OpenHistory" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Margin="20 0 0 0" >
                                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Image Source="../Resource/icon/history.png" Height="30" Width="30"></Image>
                                     </Grid>
@@ -35,23 +45,27 @@
                 <Border Padding="10 5">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                         <StackPanel>
-                            <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Id"/>
-                            <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchById" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                            <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Room#"/>
+                            <TextBox PreviewTextInput="PreviewTextInput" Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomNumber" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                         </StackPanel>
                         <StackPanel>
-                            <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Name"/>
-                            <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByName" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                            <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="Room PricePerDay"/>
+                            <TextBox PreviewTextInput="CheckDecimalFromInput" Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomPricePerDay" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                         </StackPanel>
                         <StackPanel>
-                            <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="UnitPrice"/>
-                            <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByUnitPrice" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                            <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="RoomDetailDescription"/>
+                            <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomDetailDescription" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                         </StackPanel>
                         <StackPanel>
-                            <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="UnitInStock"/>
-                            <TextBox Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByUnitsInStock" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                            <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="RoomMaxCapacity"/>
+                            <TextBox PreviewTextInput="PreviewTextInput" Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomMaxCapacity" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Style="{StaticResource ResourceKey=labelPrimary}" Height="auto" Content="RoomTypeId"/>
+                            <TextBox PreviewTextInput="PreviewTextInput" Style="{StaticResource ResourceKey=textboxPrimary}" x:Name="searchByRoomTypeId" Width="200" Height="30" Margin="0 0 5 0"></TextBox>
                         </StackPanel>
                         <StackPanel Margin="10 10">
-                            <Button Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Center" >
+                            <Button Click="Button_Search" Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Center" >
                                 Search
                             </Button>
                         </StackPanel>

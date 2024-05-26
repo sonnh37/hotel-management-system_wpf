@@ -116,7 +116,7 @@ namespace DataAccess.Managements
         public BookingReservation GetById(int id)
         {
             var queryable = base.GetQueryable<BookingReservation>();
-
+            queryable = queryable.Include(queryable => queryable.BookingDetails);
             return queryable.Where(cus => cus.BookingReservationId == id).SingleOrDefault();
         }
     }

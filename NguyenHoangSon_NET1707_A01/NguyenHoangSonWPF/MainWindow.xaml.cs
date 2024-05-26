@@ -1,4 +1,5 @@
-﻿using DataAccess.IRepositories;
+﻿using BusinessObject.Models;
+using DataAccess.IRepositories;
 using Microsoft.Extensions.Configuration;
 using NguyenHoangSonWPF.Admin;
 using System.Text;
@@ -38,8 +39,8 @@ namespace NguyenHoangSonWPF
             this.bookingRepository = _bookingRepository;
             this.roomRepository = _roomRepository;
             this.roomTypeRepository = _roomTypeRepository;
-            txtBoxUsername.Text = "admin";
-            pwdBoxPassword.Password = "admin";
+            txtBoxUsername.Text = "tramy@gmail.com";
+            pwdBoxPassword.Password = "123123";
         }
 
         public void resetFormLogin()
@@ -55,10 +56,11 @@ namespace NguyenHoangSonWPF
             var account = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("account");
             if (!String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(password))
             {
-                var customer = customerRepository.FindByEmailAndPassword(email, password);
+                Customer customer = customerRepository.FindByEmailAndPassword(email, password);
                 if (email.Equals(account["email"]) && password.Equals(account["password"]))
                 {
                     Session.Username = email;
+                    Session.Role = "Admin";
                     this.Hide();
                     AdminPage adminPage = new AdminPage(this, customerRepository, bookingRepository, bookingDetailRepository, roomRepository, roomTypeRepository);
                     adminPage.Show();
@@ -67,6 +69,7 @@ namespace NguyenHoangSonWPF
                 else if ( customer != null)
                 {
                     Session.Username = email;
+                    Session.Role = "Customer";
                     this.Hide();
                     Home home = new Home(this, customerRepository, bookingRepository, roomRepository, bookingDetailRepository, customer);
                     home.Show();

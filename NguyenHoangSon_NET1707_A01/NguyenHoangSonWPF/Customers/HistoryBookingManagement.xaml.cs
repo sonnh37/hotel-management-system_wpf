@@ -2,8 +2,8 @@
 using BusinessObject.Shared;
 using BusinessObject.Views;
 using DataAccess.IRepositories;
-using DataAccess.Repositories;
 using NguyenHoangSonWPF.Admin.AdminDialog;
+using NguyenHoangSonWPF.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,48 +17,41 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NguyenHoangSonWPF.Admin
+namespace NguyenHoangSonWPF.Customers
 {
     /// <summary>
-    /// Interaction logic for BookingManagementPage.xaml
+    /// Interaction logic for HistoryBookingManagement.xaml
     /// </summary>
-    public partial class BookingManagementPage : Page
+    public partial class HistoryBookingManagement : Window
     {
         private readonly IBookingRepository bookingRepository;
         private readonly IBookingDetailRepository bookingDetailRepository;
         private readonly CustomerManagementPage customerManagementPage;
-        public BookingManagementPage(IBookingRepository _bookingRepository, IBookingDetailRepository _bookingDetailRepository, CustomerManagementPage customerManagementPage)
+        private readonly Customer customer;
+        public HistoryBookingManagement(IBookingRepository _bookingRepository, IBookingDetailRepository _bookingDetailRepository, CustomerManagementPage customerManagementPage, Customer _customer)
         {
             InitializeComponent();
             this.bookingRepository = _bookingRepository;
             bookingDetailRepository = _bookingDetailRepository;
             this.customerManagementPage = customerManagementPage;
             this.listView.SelectionChanged += ListView_SelectionChanged;
+            this.customer = _customer;
         }
 
         private void Button_BookingDetail(object sender, RoutedEventArgs e)
         {
             BookingView view = listView.SelectedItem as BookingView;
             BookingReservation booking = bookingRepository.GetById((int)view.BookingReservationId);
-            BookingDetailManagement bookingDetailManagement = new BookingDetailManagement(bookingRepository, bookingDetailRepository, this, booking);
+            HistoryBookingDetailManagement bookingDetailManagement = new HistoryBookingDetailManagement(bookingRepository, bookingDetailRepository, this, booking);
             bookingDetailManagement.Show();
         }
 
         #region Main
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Session.Role == "Admin")
-            {
-                SetButtonEnabled(listView.SelectedItems.Count > 0);
-            }
-            else
-            {
-                SetButtonEnabledForustomer(false);
-
-            }
+            SetButtonEnabled(listView.SelectedItems.Count > 0);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -71,11 +64,7 @@ namespace NguyenHoangSonWPF.Admin
         private void SetButtonEnabledForustomer(bool enabled)
         {
             SetButtonEnabled(enabled);
-            btnAddNew.IsEnabled = enabled;
-
-            btnEdit.Visibility = Visibility.Hidden;
             btnDelete.Visibility = Visibility.Hidden;
-            btnAddNew.Visibility = Visibility.Hidden;
         }
 
         public void RefreshListView()
@@ -94,7 +83,7 @@ namespace NguyenHoangSonWPF.Admin
         private IEnumerable<BookingView> GetListView()
         {
             List<BookingView> views = new List<BookingView>();
-            foreach (var item in bookingRepository.GetAll())
+            foreach (var item in customer.BookingReservations)
             {
                 if (item.BookingStatus != Convert.ToByte(2))
                 {
@@ -119,25 +108,6 @@ namespace NguyenHoangSonWPF.Admin
             listView.ItemsSource = views;
         }
 
-        private void Button_Edit(object sender, RoutedEventArgs e)
-        {
-            int count = listView.SelectedItems.Count;
-            if (count > 0)
-            {
-                List<BookingView> bookingViews = listView.SelectedItems.Cast<BookingView>().ToList();
-                bookingViews.ForEach(bookingView =>
-                {
-                    BookingCreateOrUpdateDialog dialog = new BookingCreateOrUpdateDialog(bookingRepository, this, bookingRepository.GetById(Convert.ToInt32(bookingView.BookingReservationId)));
-
-                    dialog.Show();
-                });
-            }
-            else
-            {
-                MessageBox.Show("Please select customer");
-            }
-        }
-
         private void Button_Delete(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Do you wan't remove customer seledted?", "Remove customer", MessageBoxButton.YesNo);
@@ -150,12 +120,7 @@ namespace NguyenHoangSonWPF.Admin
             }
         }
 
-        private void Button_OpenCreate(object sender, RoutedEventArgs e)
-        {
-            BookingCreateOrUpdateDialog dialog = new BookingCreateOrUpdateDialog(bookingRepository, this, null);
 
-            dialog.Show();
-        }
         #endregion
 
 
@@ -166,7 +131,7 @@ namespace NguyenHoangSonWPF.Admin
             CustomerView customerView = customerManagementPage.ConvertModelToView(model.Customer);
 
             List<BookingDetailView> bookingDetails = new List<BookingDetailView>();
-            foreach(BookingDetail detail in model.BookingDetails)
+            foreach (BookingDetail detail in model.BookingDetails)
             {
                 bookingDetails.Add(ConvertModelToViewByBookingDetail(detail));
             }
@@ -232,7 +197,6 @@ namespace NguyenHoangSonWPF.Admin
 
         private void SetButtonEnabled(bool enabled)
         {
-            btnEdit.IsEnabled = enabled;
             btnDelete.IsEnabled = enabled;
             btnBookingDetail.IsEnabled = enabled;
         }

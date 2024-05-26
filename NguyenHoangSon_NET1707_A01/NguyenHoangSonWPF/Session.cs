@@ -10,6 +10,7 @@ namespace NguyenHoangSonWPF
     internal class Session
     {
         public static string? Username { get; set; } = null;
-        public static List<BookingDetail> carts { get; set; } = null;
+        public static List<RoomInformation> carts { get; set; } = null;
+        public static string Role { get; set; } = null;
     }
 }

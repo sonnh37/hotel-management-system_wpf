@@ -31,14 +31,15 @@ namespace NguyenHoangSonWPF
             services.AddSingleton<RoomManagementPage>();
             services.AddSingleton<BookingManagementPage>();
             services.AddSingleton<BookingDetailManagement>();
-            services.AddSingleton<HistoryBookingManagementPage>();
+            services.AddSingleton<HistoryBookingDetailManagement>();
+            services.AddSingleton<HistoryBookingManagement>();
             services.AddSingleton<ProfileManagementPage>();
             
             services.AddSingleton<BookingCreateOrUpdateDialog>();
             services.AddSingleton<CustomerCreateOrUpdateDialog>();
             services.AddSingleton<RoomCreateOrUpdateDialog>();
 
-            services.AddSingleton<BookingReservationDateDialog>();
+            services.AddSingleton<CartPage>();
 
             services.AddSingleton<Home>();
             services.AddSingleton<MainWindow>();
