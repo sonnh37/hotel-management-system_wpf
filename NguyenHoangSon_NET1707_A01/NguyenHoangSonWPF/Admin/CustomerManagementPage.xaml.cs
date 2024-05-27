@@ -30,13 +30,14 @@ namespace NguyenHoangSonWPF.Admin
     public partial class CustomerManagementPage : Page
     {
         private readonly ICustomerRepository customerRepository;
-        
+
         public CustomerManagementPage(ICustomerRepository _customerRepository)
         {
             InitializeComponent();
             this.customerRepository = _customerRepository;
             this.listView.SelectionChanged += ListView_SelectionChanged;
         }
+
         #region Main
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -79,7 +80,16 @@ namespace NguyenHoangSonWPF.Admin
         private void Button_Search(object sender, RoutedEventArgs e)
         {
             CustomerView customerViewFilter = GetCustomerViewFilter();
-            IEnumerable<Customer> models = customerRepository.GetAllByFilter(customerViewFilter);
+            IEnumerable<Customer> models = new List<Customer>();
+            if (IsCustomerViewFilterValid(customerViewFilter))
+            {
+                models = customerRepository.GetAllByFilter(customerViewFilter);
+            }
+            else
+            {
+                models = customerRepository.GetAllByFilter(null);
+            }
+
             List<CustomerView> views = new List<CustomerView>();
 
             foreach (var model in models)
@@ -89,6 +99,28 @@ namespace NguyenHoangSonWPF.Admin
 
             listView.ItemsSource = views;
         }
+
+        private CustomerView GetCustomerViewFilter()
+        {
+            return new CustomerView()
+            {
+                CustomerId = !string.IsNullOrEmpty(searchById.Text) ? (int?)int.Parse(searchById.Text) : null,
+                EmailAddress = !string.IsNullOrEmpty(searchByEmail.Text) ? searchByEmail.Text : null,
+                CustomerFullName = !string.IsNullOrEmpty(searchByFullName.Text) ? searchByFullName.Text : null,
+                Telephone = !string.IsNullOrEmpty(searchByTelephone.Text) ? searchByTelephone.Text : null,
+                CustomerBirthday = searchByBirthday.SelectedDate.HasValue ? searchByBirthday.SelectedDate.Value : (DateTime?)null,
+            };
+        }
+
+        private bool IsCustomerViewFilterValid(CustomerView customerViewFilter)
+        {
+            return customerViewFilter.CustomerId.HasValue ||
+                   !string.IsNullOrEmpty(customerViewFilter.EmailAddress) ||
+                   !string.IsNullOrEmpty(customerViewFilter.CustomerFullName) ||
+                   !string.IsNullOrEmpty(customerViewFilter.Telephone) ||
+                   customerViewFilter.CustomerBirthday.HasValue;
+        }
+
 
         private void Button_Edit(object sender, RoutedEventArgs e)
         {
@@ -152,17 +184,6 @@ namespace NguyenHoangSonWPF.Admin
             return c;
         }
 
-        private CustomerView GetCustomerViewFilter()
-        {
-            return new CustomerView()
-            {
-                CustomerId = !String.IsNullOrEmpty(searchById.Text) ? int.Parse(searchById.Text) : null,
-                EmailAddress = !String.IsNullOrEmpty(searchByEmail.Text) ? searchByEmail.Text : null,
-                CustomerFullName = !String.IsNullOrEmpty(searchByFullName.Text) ? searchByFullName.Text : null,
-                Telephone = !String.IsNullOrEmpty(searchByTelephone.Text) ? searchByTelephone.Text : null,
-                CustomerBirthday = searchByBirthday.SelectedDate.HasValue ? searchByBirthday.SelectedDate.Value : null,
-            };
-        }
 
         #endregion
 

@@ -20,22 +20,24 @@ using System.Windows.Shapes;
 namespace NguyenHoangSonWPF.Customers
 {
     /// <summary>
-    /// Interaction logic for HistoryBookingDetailManagement.xaml
+    /// Interaction logic for HistoryBookingDetailWindow.xaml
     /// </summary>
-    public partial class HistoryBookingDetailManagement : Window
+    public partial class HistoryBookingDetailWindow : Window
     {
         private IBookingRepository _bookingRepository;
         private IBookingDetailRepository _bookingDetailRepository;
-        private HistoryBookingManagement _bookingManagementPage;
+
+        private HistoryBookingWindow _historyBookingWindow;
+
         public List<BookingDetailView> bookingDetailViews;
         private BookingReservation? booking;
 
-        public HistoryBookingDetailManagement(IBookingRepository bookingRepository, IBookingDetailRepository bookingDetailRepository, HistoryBookingManagement bookingManagementPage, BookingReservation? booking)
+        public HistoryBookingDetailWindow(IBookingRepository bookingRepository, IBookingDetailRepository bookingDetailRepository, HistoryBookingWindow historyBookingWindow, BookingReservation? booking)
         {
             InitializeComponent();
             _bookingRepository = bookingRepository;
             _bookingDetailRepository = bookingDetailRepository;
-            _bookingManagementPage = bookingManagementPage;
+            _historyBookingWindow = historyBookingWindow;
             this.booking = booking;
         }
 
@@ -66,7 +68,7 @@ namespace NguyenHoangSonWPF.Customers
             bookingDetailViews = new List<BookingDetailView>();
             foreach (BookingDetail view in bookingDetails)
             {
-                bookingDetailViews.Add(_bookingManagementPage.ConvertModelToViewByBookingDetail(view));
+                bookingDetailViews.Add(_historyBookingWindow.ConvertModelToViewByBookingDetail(view));
             }
 
             return bookingDetailViews;
@@ -81,7 +83,7 @@ namespace NguyenHoangSonWPF.Customers
 
             foreach (var model in models)
             {
-                views.Add(_bookingManagementPage.ConvertModelToViewByBookingDetail((BookingDetail)model));
+                views.Add(_historyBookingWindow.ConvertModelToViewByBookingDetail((BookingDetail)model));
             }
 
             listView.ItemsSource = views;

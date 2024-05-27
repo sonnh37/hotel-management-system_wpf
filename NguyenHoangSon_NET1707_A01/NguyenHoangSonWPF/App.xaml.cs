@@ -24,34 +24,44 @@ namespace NguyenHoangSonWPF
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
         }
+
         private void ConfigureServices(ServiceCollection services)
         {
-            services.AddSingleton<AdminPage>();
+            PageServices(services);
+
+            WindowServices(services);
+
+            RepositoryServices(services);
+        }
+
+        private void PageServices(ServiceCollection services)
+        {
             services.AddSingleton<CustomerManagementPage>();
             services.AddSingleton<RoomManagementPage>();
             services.AddSingleton<BookingManagementPage>();
-            services.AddSingleton<BookingDetailManagement>();
-            services.AddSingleton<HistoryBookingDetailManagement>();
-            services.AddSingleton<HistoryBookingManagement>();
-            services.AddSingleton<ProfileManagementPage>();
-            
+        }
+
+        private void WindowServices(ServiceCollection services)
+        {
+            services.AddSingleton<Home>();
+            services.AddSingleton<MainWindow>();
+            services.AddSingleton<AdminWindow>();
+            services.AddSingleton<BookingDetailManagementWindow>();
+            services.AddSingleton<HistoryBookingDetailWindow>();
+            services.AddSingleton<HistoryBookingWindow>();
             services.AddSingleton<BookingCreateOrUpdateDialog>();
             services.AddSingleton<CustomerCreateOrUpdateDialog>();
             services.AddSingleton<RoomCreateOrUpdateDialog>();
+            services.AddSingleton<CartWindow>();
+        }
 
-            services.AddSingleton<CartPage>();
-
-            services.AddSingleton<Home>();
-            services.AddSingleton<MainWindow>();
-
+        private void RepositoryServices(ServiceCollection services)
+        {
             services.AddScoped<IRoomTypeRepository, RoomTypeRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
-
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IBookingDetailRepository, BookingDetailRepository>();
-
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-
         }
 
         private void OnStartup(object sender, StartupEventArgs e)
@@ -63,5 +73,5 @@ namespace NguyenHoangSonWPF
             }
         }
     }
-    
+
 }

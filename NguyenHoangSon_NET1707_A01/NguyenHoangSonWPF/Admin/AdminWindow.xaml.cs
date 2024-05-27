@@ -16,20 +16,18 @@ using System.Windows.Shapes;
 namespace NguyenHoangSonWPF.Admin
 {
     /// <summary>
-    /// Interaction logic for AdminPage.xaml
+    /// Interaction logic for AdminWindow.xaml
     /// </summary>
-    public partial class AdminPage : Window
+    public partial class AdminWindow : Window
     {
         private readonly ICustomerRepository customerRepository;
-
         private readonly IBookingRepository bookingRepository;
         private readonly IBookingDetailRepository bookingDetailRepository;
-
         private readonly IRoomRepository roomRepository;
         private readonly IRoomTypeRepository roomTypeRepository;
-
         private readonly MainWindow mainWindow;
-        public AdminPage(MainWindow _mainWindow,
+
+        public AdminWindow(MainWindow _mainWindow,
             ICustomerRepository _customerRepository,
             IBookingRepository _bookingRepository,
             IBookingDetailRepository _bookingDetailRepository,

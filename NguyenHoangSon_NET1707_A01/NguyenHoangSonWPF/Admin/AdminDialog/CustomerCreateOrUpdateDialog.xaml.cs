@@ -27,8 +27,8 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly CustomerManagementPage _customerManagementPage;
-        private Customer? customer;
 
+        private Customer? customer;
 
         public CustomerCreateOrUpdateDialog(ICustomerRepository customerRepository, CustomerManagementPage customerManagementPage, Customer? customer)
         {
@@ -50,9 +50,10 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
                 labelStatus.Visibility = Visibility.Visible;
                 cboStatus.Visibility = Visibility.Visible;
 
-                if(Session.Role == "Customer")
+                if (Session.Role == "Customer")
                 {
                     txtBoxEmailAddress.IsEnabled = false;
+                    this.Title = "Customer's Profile";
                 }
 
                 btnCreateOrUpdate.Content = "Update";

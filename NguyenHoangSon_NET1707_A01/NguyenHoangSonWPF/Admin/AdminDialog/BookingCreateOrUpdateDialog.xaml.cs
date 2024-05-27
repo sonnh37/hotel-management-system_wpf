@@ -27,12 +27,12 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
     {
         private IBookingRepository _bookingRepository;
         private BookingManagementPage _bookingManagementPage;
-        private BookingReservation? booking;
 
+        private BookingReservation? booking;
         private BookingView bookingView;
         public List<BookingDetailView> bookingDetailViews;
 
-        public BookingCreateOrUpdateDialog(IBookingRepository bookingRepository, BookingManagementPage bookingManagementPage, BookingReservation bookingReservation) 
+        public BookingCreateOrUpdateDialog(IBookingRepository bookingRepository, BookingManagementPage bookingManagementPage, BookingReservation bookingReservation)
         {
             InitializeComponent();
 

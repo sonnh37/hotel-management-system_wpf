@@ -43,8 +43,8 @@ namespace NguyenHoangSonWPF.Admin
         {
             BookingView view = listView.SelectedItem as BookingView;
             BookingReservation booking = bookingRepository.GetById((int)view.BookingReservationId);
-            BookingDetailManagement bookingDetailManagement = new BookingDetailManagement(bookingRepository, bookingDetailRepository, this, booking);
-            bookingDetailManagement.Show();
+            BookingDetailManagementWindow bookingDetailManagementWindow = new BookingDetailManagementWindow(bookingRepository, bookingDetailRepository, this, booking);
+            bookingDetailManagementWindow.Show();
         }
 
         #region Main
@@ -108,7 +108,18 @@ namespace NguyenHoangSonWPF.Admin
         private void Button_Search(object sender, RoutedEventArgs e)
         {
             BookingView bookingViewFilter = GetBookingViewFilter();
-            IEnumerable<BookingReservation> models = bookingRepository.GetAllByFilter(bookingViewFilter);
+
+            IEnumerable<BookingReservation> models = new List<BookingReservation>();
+
+            if (models != null)
+            {
+                models = bookingRepository.GetAllByFilter(bookingViewFilter);
+            }
+            else
+            {
+                models = bookingRepository.GetAllByFilter(null);
+            }
+
             List<BookingView> views = new List<BookingView>();
 
             foreach (var model in models)

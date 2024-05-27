@@ -17,17 +17,18 @@ using System.Windows.Shapes;
 namespace NguyenHoangSonWPF.Customers
 {
     /// <summary>
-    /// Interaction logic for CartPage.xaml
+    /// Interaction logic for CartWindow.xaml
     /// </summary>
-    public partial class CartPage : Window
+    public partial class CartWindow : Window
     {
-        public Customer customer;
         private readonly IBookingRepository bookingRepository;
         private readonly IRoomRepository roomRepository;
         private readonly IBookingDetailRepository bookingDetailRepository;
-        private readonly Home home;
 
-        public CartPage(Home _home, Customer customer, IBookingRepository _bookingRepository, IRoomRepository _roomRepository, IBookingDetailRepository _bookingDetailRepository)
+        private readonly Home home;
+        public Customer customer;
+
+        public CartWindow(Home _home, Customer customer, IBookingRepository _bookingRepository, IRoomRepository _roomRepository, IBookingDetailRepository _bookingDetailRepository)
         {
             InitializeComponent();
             this.bookingRepository = _bookingRepository;

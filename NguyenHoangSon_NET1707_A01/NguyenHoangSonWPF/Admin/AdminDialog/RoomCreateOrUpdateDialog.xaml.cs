@@ -48,7 +48,7 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             if (room != null)
             {
                 roomView = _roomManagementPage.ConvertModelToView(room);
-                
+
                 LoadRoomInDialog(roomView);
 
                 txtBoxId.Visibility = Visibility.Visible;
@@ -102,7 +102,7 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
             cboBoxRoomTypeId.DisplayMemberPath = "RoomTypeName";
             cboBoxRoomTypeId.SelectedValuePath = "RoomTypeId";
 
-            if(roomView != null)
+            if (roomView != null)
             {
                 foreach (var roomTypeView in roomTypeViews)
                 {
@@ -112,7 +112,7 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
                     }
                 }
             }
-            
+
         }
 
         private void LoadRoomInDialog(RoomView view)

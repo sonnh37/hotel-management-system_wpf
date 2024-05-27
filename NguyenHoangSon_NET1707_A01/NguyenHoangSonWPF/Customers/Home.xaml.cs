@@ -32,7 +32,9 @@ namespace NguyenHoangSonWPF
         private readonly IBookingRepository bookingRepository;
         private readonly IRoomRepository roomRepository;
         private readonly IBookingDetailRepository bookingDetailRepository;
+
         private readonly MainWindow mainWindow;
+
         private Customer customer;
 
         public Home(MainWindow _mainWindow,
@@ -101,33 +103,51 @@ namespace NguyenHoangSonWPF
 
         private void Button_OpenOrder(object sender, RoutedEventArgs e)
         {
-            CartPage cartPage = new CartPage(this, customer, bookingRepository, roomRepository, bookingDetailRepository);
-            cartPage.Show();
+            CartWindow cartWindow = new CartWindow(this, customer, bookingRepository, roomRepository, bookingDetailRepository);
+            cartWindow.Show();
         }
 
         private void Button_OpenHistory(object sender, RoutedEventArgs e)
         {
-            HistoryBookingManagement bookingManagementPage = new HistoryBookingManagement(bookingRepository, bookingDetailRepository
+            HistoryBookingWindow historyBookingWindow = new HistoryBookingWindow(bookingRepository, bookingDetailRepository
                 , new CustomerManagementPage(customerRepository), customerRepository.GetById(customer.CustomerId));
-            bookingManagementPage.Show();
+            historyBookingWindow.Show();
         }
 
         private void Button_Search(object sender, RoutedEventArgs e)
         {
-            RoomView customerViewFilter = GetRoomViewFilter();
-            ListProduct.ItemsSource = roomRepository.GetAllByFilter(customerViewFilter);
+            RoomView roomViewFilter = GetRoomViewFilter();
+
+            if (IsRoomViewFilterValid(roomViewFilter))
+            {
+                ListProduct.ItemsSource = roomRepository.GetAllByFilter(roomViewFilter);
+            }
+            else
+            {
+                ListProduct.ItemsSource = roomRepository.GetAllByFilter(null);
+            }
         }
 
         private RoomView GetRoomViewFilter()
         {
             return new RoomView()
             {
-                RoomNumber = !String.IsNullOrEmpty(searchByRoomNumber.Text) ? searchByRoomNumber.Text : null,
-                RoomMaxCapacity = !String.IsNullOrEmpty(searchByRoomMaxCapacity.Text) ? Convert.ToInt32(searchByRoomMaxCapacity.Text) : null,
-                RoomDetailDescription = !String.IsNullOrEmpty(searchByRoomDetailDescription.Text) ? searchByRoomDetailDescription.Text : null,
-                RoomTypeId = !String.IsNullOrEmpty(searchByRoomTypeId.Text) ? Convert.ToInt32(searchByRoomTypeId.Text) : null,
-                RoomPricePerDay = !String.IsNullOrEmpty(searchByRoomPricePerDay.Text) ? Convert.ToInt32(searchByRoomPricePerDay.Text) : null,
+                RoomNumber = !string.IsNullOrEmpty(searchByRoomNumber.Text) ? searchByRoomNumber.Text : null,
+                RoomMaxCapacity = !string.IsNullOrEmpty(searchByRoomMaxCapacity.Text) ? (int?)Convert.ToInt32(searchByRoomMaxCapacity.Text) : null,
+                RoomDetailDescription = !string.IsNullOrEmpty(searchByRoomDetailDescription.Text) ? searchByRoomDetailDescription.Text : null,
+                RoomTypeId = !string.IsNullOrEmpty(searchByRoomTypeId.Text) ? (int?)Convert.ToInt32(searchByRoomTypeId.Text) : null,
+                RoomPricePerDay = !string.IsNullOrEmpty(searchByRoomPricePerDay.Text) ? (int?)Convert.ToInt32(searchByRoomPricePerDay.Text) : null,
+
             };
+        }
+
+        private bool IsRoomViewFilterValid(RoomView roomViewFilter)
+        {
+            return !string.IsNullOrEmpty(roomViewFilter.RoomNumber) ||
+                   roomViewFilter.RoomMaxCapacity.HasValue ||
+                   !string.IsNullOrEmpty(roomViewFilter.RoomDetailDescription) ||
+                   roomViewFilter.RoomTypeId.HasValue ||
+                   roomViewFilter.RoomPricePerDay.HasValue;
         }
 
         public void PreviewTextInput(object sender, TextCompositionEventArgs e)

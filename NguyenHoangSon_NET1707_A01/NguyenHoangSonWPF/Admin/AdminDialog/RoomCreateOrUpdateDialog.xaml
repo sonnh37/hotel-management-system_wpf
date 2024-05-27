@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NguyenHoangSonWPF.Admin.AdminDialog"
         mc:Ignorable="d"
-        Title="RoomCreateOrUpdateDialog" Height="500" Width="600"
+        Title="RoomCreateOrUpdateDialog" Height="600" Width="600"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded">
     <Window.Resources>

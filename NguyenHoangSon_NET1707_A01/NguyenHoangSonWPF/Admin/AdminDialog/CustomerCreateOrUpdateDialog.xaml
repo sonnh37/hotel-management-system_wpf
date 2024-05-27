@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:NguyenHoangSonWPF.Admin.AdminDialog"
         mc:Ignorable="d"
         Title="CustomerCreateOrUpdateDialog" 
-        Height="500" Width="600"
+        Height="600" Width="600"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         >

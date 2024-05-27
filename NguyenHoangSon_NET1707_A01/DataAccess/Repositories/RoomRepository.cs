@@ -50,6 +50,7 @@ namespace DataAccess.Repositories
                     (filter.RoomDetailDescription == null || (room.RoomDetailDescription != null && room.RoomDetailDescription.ToLower().Trim().Contains(filter.RoomDetailDescription.ToLower().Trim()))) &&
                     (filter.RoomMaxCapacity == null || room.RoomMaxCapacity == filter.RoomMaxCapacity) &&
                     (filter.RoomTypeId == null || room.RoomTypeId == filter.RoomTypeId) &&
+                    (filter.RoomStatus == null || room.RoomStatus == Convert.ToByte(1)) &&
                     (filter.RoomPricePerDay == null || room.RoomPricePerDay == filter.RoomPricePerDay))
                 : GetAll();
         }

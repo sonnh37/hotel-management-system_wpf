@@ -22,15 +22,18 @@ using System.Windows.Shapes;
 namespace NguyenHoangSonWPF.Customers
 {
     /// <summary>
-    /// Interaction logic for HistoryBookingManagement.xaml
+    /// Interaction logic for HistoryBookingWindow.xaml
     /// </summary>
-    public partial class HistoryBookingManagement : Window
+    public partial class HistoryBookingWindow : Window
     {
         private readonly IBookingRepository bookingRepository;
         private readonly IBookingDetailRepository bookingDetailRepository;
+
         private readonly CustomerManagementPage customerManagementPage;
+
         private readonly Customer customer;
-        public HistoryBookingManagement(IBookingRepository _bookingRepository, IBookingDetailRepository _bookingDetailRepository, CustomerManagementPage customerManagementPage, Customer _customer)
+
+        public HistoryBookingWindow(IBookingRepository _bookingRepository, IBookingDetailRepository _bookingDetailRepository, CustomerManagementPage customerManagementPage, Customer _customer)
         {
             InitializeComponent();
             this.bookingRepository = _bookingRepository;
@@ -44,8 +47,8 @@ namespace NguyenHoangSonWPF.Customers
         {
             BookingView view = listView.SelectedItem as BookingView;
             BookingReservation booking = bookingRepository.GetById((int)view.BookingReservationId);
-            HistoryBookingDetailManagement bookingDetailManagement = new HistoryBookingDetailManagement(bookingRepository, bookingDetailRepository, this, booking);
-            bookingDetailManagement.Show();
+            HistoryBookingDetailWindow historyBookingDetailWindow = new HistoryBookingDetailWindow(bookingRepository, bookingDetailRepository, this, booking);
+            historyBookingDetailWindow.Show();
         }
 
         #region Main

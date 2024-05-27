@@ -38,7 +38,6 @@ namespace NguyenHoangSonWPF.Admin
             roomTypeRepository = _roomTypeRepository;
         }
 
-
         #region Main
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -82,8 +81,19 @@ namespace NguyenHoangSonWPF.Admin
 
         private void Button_Search(object sender, RoutedEventArgs e)
         {
-            RoomView customerViewFilter = GetRoomViewFilter();
-            IEnumerable<RoomInformation> models = roomRepository.GetAllByFilter(customerViewFilter);
+            RoomView roomViewFilter = GetRoomViewFilter();
+
+            IEnumerable<RoomInformation> models = new List<RoomInformation>();
+
+            if (IsRoomViewFilterValid(roomViewFilter))
+            {
+                models = roomRepository.GetAllByFilter(roomViewFilter);
+            }
+            else
+            {
+                models = roomRepository.GetAllByFilter(null);
+            }
+
             List<RoomView> views = new List<RoomView>();
 
             foreach (var model in models)
@@ -93,6 +103,30 @@ namespace NguyenHoangSonWPF.Admin
 
             listView.ItemsSource = views;
         }
+
+        private RoomView GetRoomViewFilter()
+        {
+            return new RoomView()
+            {
+                RoomId = !string.IsNullOrEmpty(searchById.Text) ? (int?)int.Parse(searchById.Text) : null,
+                RoomNumber = !string.IsNullOrEmpty(searchByRoomNumber.Text) ? searchByRoomNumber.Text : null,
+                RoomDetailDescription = !string.IsNullOrEmpty(searchByRoomDetailDescription.Text) ? searchByRoomDetailDescription.Text : null,
+                RoomMaxCapacity = !string.IsNullOrEmpty(searchByRoomMaxCapacity.Text) ? (int?)Convert.ToInt32(searchByRoomMaxCapacity.Text) : null,
+                RoomTypeId = !string.IsNullOrEmpty(searchByRoomTypeId.Text) ? (int?)Convert.ToInt32(searchByRoomTypeId.Text) : null,
+                RoomPricePerDay = !string.IsNullOrEmpty(searchByRoomPricePerDay.Text) ? (int?)Convert.ToInt32(searchByRoomPricePerDay.Text) : null,
+            };
+        }
+
+        private bool IsRoomViewFilterValid(RoomView roomViewFilter)
+        {
+            return roomViewFilter.RoomId.HasValue ||
+                   !string.IsNullOrEmpty(roomViewFilter.RoomNumber) ||
+                   !string.IsNullOrEmpty(roomViewFilter.RoomDetailDescription) ||
+                   roomViewFilter.RoomMaxCapacity.HasValue ||
+                   roomViewFilter.RoomTypeId.HasValue ||
+                   roomViewFilter.RoomPricePerDay.HasValue;
+        }
+
 
         private void Button_Edit(object sender, RoutedEventArgs e)
         {
@@ -170,19 +204,6 @@ namespace NguyenHoangSonWPF.Admin
             room.RoomStatus = Convert.ToByte(2);
 
             return room;
-        }
-
-        private RoomView GetRoomViewFilter()
-        {
-            return new RoomView()
-            {
-                RoomId = !String.IsNullOrEmpty(searchById.Text) ? int.Parse(searchById.Text) : null,
-                RoomNumber = !String.IsNullOrEmpty(searchByRoomNumber.Text) ? searchByRoomNumber.Text : null,
-                RoomDetailDescription = !String.IsNullOrEmpty(searchByRoomDetailDescription.Text) ? searchByRoomDetailDescription.Text : null,
-                RoomMaxCapacity = !String.IsNullOrEmpty(searchByRoomMaxCapacity.Text) ? Convert.ToInt32(searchByRoomMaxCapacity.Text) : null,
-                RoomTypeId = !String.IsNullOrEmpty(searchByRoomTypeId.Text) ? Convert.ToInt32(searchByRoomTypeId.Text) : null,
-                RoomPricePerDay = !String.IsNullOrEmpty(searchByRoomPricePerDay.Text) ? Convert.ToInt32(searchByRoomPricePerDay.Text) : null,
-            };
         }
 
         #endregion

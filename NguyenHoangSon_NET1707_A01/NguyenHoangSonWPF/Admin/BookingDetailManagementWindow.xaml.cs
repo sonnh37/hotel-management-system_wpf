@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 
 namespace NguyenHoangSonWPF.Admin.AdminDialog
 {
-    public partial class BookingDetailManagement : Window
+    public partial class BookingDetailManagementWindow : Window
     {
         private IBookingRepository _bookingRepository;
         private IBookingDetailRepository _bookingDetailRepository;
@@ -28,7 +28,7 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
         public List<BookingDetailView> bookingDetailViews;
         private BookingReservation? booking;
 
-        public BookingDetailManagement(IBookingRepository bookingRepository, IBookingDetailRepository bookingDetailRepository, BookingManagementPage bookingManagementPage, BookingReservation? booking)
+        public BookingDetailManagementWindow(IBookingRepository bookingRepository, IBookingDetailRepository bookingDetailRepository, BookingManagementPage bookingManagementPage, BookingReservation? booking)
         {
             InitializeComponent();
             _bookingRepository = bookingRepository;
@@ -78,16 +78,16 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
 
         private void Button_Search(object sender, RoutedEventArgs e)
         {
-            BookingDetailView bookingViewFilter = GetBookingViewFilter();
-            IEnumerable<BookingDetail> models = _bookingDetailRepository.GetAllByFilter(bookingViewFilter);
-            List<BookingDetailView> views = new List<BookingDetailView>();
+            //BookingDetailView bookingViewFilter = GetBookingViewFilter();
+            //IEnumerable<BookingDetail> models = _bookingDetailRepository.GetAllByFilter(bookingViewFilter);
+            //List<BookingDetailView> views = new List<BookingDetailView>();
 
-            foreach (var model in models)
-            {
-                views.Add(_bookingManagementPage.ConvertModelToViewByBookingDetail((BookingDetail)model));
-            }
+            //foreach (var model in models)
+            //{
+            //    views.Add(_bookingManagementPage.ConvertModelToViewByBookingDetail((BookingDetail)model));
+            //}
 
-            listView.ItemsSource = views;
+            //listView.ItemsSource = views;
         }
 
         private void Button_Delete(object sender, RoutedEventArgs e)
@@ -105,16 +105,6 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
         #endregion
 
         #region Mapping View, Model + Get ViewFilter 
-
-        private BookingDetailView GetBookingViewFilter()
-        {
-            return new BookingDetailView()
-            {
-                BookingReservationId = !String.IsNullOrEmpty(booking.BookingReservationId.ToString()) ? booking.BookingReservationId : null,
-                StartDate = searchByStartDate.SelectedDate.HasValue ? searchByStartDate.SelectedDate.Value : null,
-                EndDate = searchByEndDate.SelectedDate.HasValue ? searchByEndDate.SelectedDate.Value : null,
-            };
-        }
 
         #endregion
 

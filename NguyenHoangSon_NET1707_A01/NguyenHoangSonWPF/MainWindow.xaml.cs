@@ -26,9 +26,9 @@ namespace NguyenHoangSonWPF
         private readonly IBookingDetailRepository bookingDetailRepository;
         private readonly IRoomRepository roomRepository;
         private readonly IRoomTypeRepository roomTypeRepository;
-        
-        public MainWindow(ICustomerRepository _customerRepository, 
-            IBookingRepository _bookingRepository, 
+
+        public MainWindow(ICustomerRepository _customerRepository,
+            IBookingRepository _bookingRepository,
             IRoomRepository _roomRepository,
             IRoomTypeRepository _roomTypeRepository,
             IBookingDetailRepository _bookingDetailRepository
@@ -40,8 +40,6 @@ namespace NguyenHoangSonWPF
             this.bookingRepository = _bookingRepository;
             this.roomRepository = _roomRepository;
             this.roomTypeRepository = _roomTypeRepository;
-            txtBoxUsername.Text = "admin@FUMiniHotelSystem.com";
-            pwdBoxPassword.Password = "@@abc123@@";
         }
 
         public void resetFormLogin()
@@ -57,15 +55,16 @@ namespace NguyenHoangSonWPF
             var account = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("account");
             if (!String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(password))
             {
-                if (ShareService.IsValid(email)) {
+                if (ShareService.IsValid(email))
+                {
                     Customer customer = customerRepository.FindByEmailAndPassword(email, password);
                     if (email.Equals(account["email"]) && password.Equals(account["password"]))
                     {
                         Session.Username = email;
                         Session.Role = "Admin";
                         this.Hide();
-                        AdminPage adminPage = new AdminPage(this, customerRepository, bookingRepository, bookingDetailRepository, roomRepository, roomTypeRepository);
-                        adminPage.Show();
+                        AdminWindow adminWindow = new AdminWindow(this, customerRepository, bookingRepository, bookingDetailRepository, roomRepository, roomTypeRepository);
+                        adminWindow.Show();
                         resetFormLogin();
                     }
                     else if (customer != null)
