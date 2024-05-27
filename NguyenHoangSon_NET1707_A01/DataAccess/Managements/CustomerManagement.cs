@@ -98,7 +98,7 @@ namespace DataAccess.Managements
         public Customer GetById(int id)
         {
             var queryable = base.GetQueryable<Customer>();
-
+            queryable = queryable.Include(query => query.BookingReservations);
             return queryable.Where(cus => cus.CustomerId == id).SingleOrDefault();
         }
 
