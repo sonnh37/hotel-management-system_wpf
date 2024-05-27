@@ -19,7 +19,7 @@
             <TextBlock Style="{StaticResource ResourceKey=spanPrimary}" HorizontalAlignment="Center" Margin="0 0 0 10">
             Welcome to Mini Hotel FPT University
             </TextBlock>
-            <Label Content="Username" Style="{StaticResource ResourceKey=labelPrimary}"/>
+            <Label Content="Email" Style="{StaticResource ResourceKey=labelPrimary}"/>
             <TextBox x:Name="txtBoxUsername" Margin="0 0 0 5" Style="{StaticResource ResourceKey=textboxPrimary}"/>
             <Label Content="Password" Style="{StaticResource ResourceKey=labelPrimary}"/>
             <PasswordBox x:Name="pwdBoxPassword" Margin="0 0 0 20" Style="{StaticResource ResourceKey=passwordBoxPrimary}"/>

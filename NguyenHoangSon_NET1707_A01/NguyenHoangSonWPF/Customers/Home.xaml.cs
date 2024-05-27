@@ -71,17 +71,17 @@ namespace NguyenHoangSonWPF
 
         private void Button_Order(object sender, RoutedEventArgs e)
         {
-            if(Session.carts == null)
+            if (Session.carts == null)
             {
                 Session.carts = new List<RoomInformation>();
             }
 
-            if( sender is Button button)
+            if (sender is Button button)
             {
                 RoomInformation room = roomRepository.GetById((int)button.Tag);
-                foreach(RoomInformation x in Session.carts)
+                foreach (RoomInformation x in Session.carts)
                 {
-                    if(x.RoomId == room.RoomId)
+                    if (x.RoomId == room.RoomId)
                     {
                         MessageBox.Show($"Room {room.RoomNumber} was added. Pls choose another!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
@@ -101,7 +101,7 @@ namespace NguyenHoangSonWPF
 
         private void Button_OpenOrder(object sender, RoutedEventArgs e)
         {
-            CartPage cartPage = new CartPage(this,customer, bookingRepository, roomRepository, bookingDetailRepository);
+            CartPage cartPage = new CartPage(this, customer, bookingRepository, roomRepository, bookingDetailRepository);
             cartPage.Show();
         }
 
@@ -117,7 +117,7 @@ namespace NguyenHoangSonWPF
             RoomView customerViewFilter = GetRoomViewFilter();
             ListProduct.ItemsSource = roomRepository.GetAllByFilter(customerViewFilter);
         }
-        
+
         private RoomView GetRoomViewFilter()
         {
             return new RoomView()
@@ -146,6 +146,12 @@ namespace NguyenHoangSonWPF
         {
             Close();
             mainWindow.Show();
+        }
+
+        private void Button_OpenProfile(object sender, RoutedEventArgs e)
+        {
+            CustomerCreateOrUpdateDialog dialog = new CustomerCreateOrUpdateDialog(customerRepository, new CustomerManagementPage(customerRepository), customerRepository.GetById(customer.CustomerId));
+            dialog.Show();
         }
     }
 }

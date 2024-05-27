@@ -21,6 +21,13 @@ namespace BusinessObject.Shared
             return status == Convert.ToByte(1) ? "Active" : "Deleted";
         }
 
+        public static bool IsValid(string email)
+        {
+            string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
+
+            return Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
+        }
+
         public bool IsDecimalFormat(string input)
         {
             Decimal dummy;

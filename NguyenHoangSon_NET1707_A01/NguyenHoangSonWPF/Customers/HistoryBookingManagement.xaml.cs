@@ -175,7 +175,6 @@ namespace NguyenHoangSonWPF.Customers
             return new BookingView()
             {
                 BookingReservationId = !String.IsNullOrEmpty(searchByBookingReservationId.Text) ? int.Parse(searchByBookingReservationId.Text) : null,
-                CustomerId = !String.IsNullOrEmpty(searchByCustomerId.Text) ? int.Parse(searchByCustomerId.Text) : null,
                 BookingDate = searchByBookingDate.SelectedDate.HasValue ? searchByBookingDate.SelectedDate.Value : null,
             };
         }
@@ -203,7 +202,6 @@ namespace NguyenHoangSonWPF.Customers
 
         private void ClearFieldsExisting()
         {
-            searchByCustomerId.Clear();
             searchByBookingReservationId.Clear();
             searchByBookingDate.SelectedDate = null;
         }

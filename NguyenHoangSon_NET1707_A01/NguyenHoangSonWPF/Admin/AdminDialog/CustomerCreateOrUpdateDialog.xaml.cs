@@ -50,6 +50,11 @@ namespace NguyenHoangSonWPF.Admin.AdminDialog
                 labelStatus.Visibility = Visibility.Visible;
                 cboStatus.Visibility = Visibility.Visible;
 
+                if(Session.Role == "Customer")
+                {
+                    txtBoxEmailAddress.IsEnabled = false;
+                }
+
                 btnCreateOrUpdate.Content = "Update";
             }
         }

@@ -1,4 +1,5 @@
 ﻿using BusinessObject.Models;
+using BusinessObject.Shared;
 using DataAccess.IRepositories;
 using Microsoft.Extensions.Configuration;
 using NguyenHoangSonWPF.Admin;
@@ -56,33 +57,39 @@ namespace NguyenHoangSonWPF
             var account = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("account");
             if (!String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(password))
             {
-                Customer customer = customerRepository.FindByEmailAndPassword(email, password);
-                if (email.Equals(account["email"]) && password.Equals(account["password"]))
-                {
-                    Session.Username = email;
-                    Session.Role = "Admin";
-                    this.Hide();
-                    AdminPage adminPage = new AdminPage(this, customerRepository, bookingRepository, bookingDetailRepository, roomRepository, roomTypeRepository);
-                    adminPage.Show();
-                    resetFormLogin();
-                }
-                else if ( customer != null)
-                {
-                    Session.Username = email;
-                    Session.Role = "Customer";
-                    this.Hide();
-                    Home home = new Home(this, customerRepository, bookingRepository, roomRepository, bookingDetailRepository, customer);
-                    home.Show();
-                    resetFormLogin();
+                if (ShareService.IsValid(email)) {
+                    Customer customer = customerRepository.FindByEmailAndPassword(email, password);
+                    if (email.Equals(account["email"]) && password.Equals(account["password"]))
+                    {
+                        Session.Username = email;
+                        Session.Role = "Admin";
+                        this.Hide();
+                        AdminPage adminPage = new AdminPage(this, customerRepository, bookingRepository, bookingDetailRepository, roomRepository, roomTypeRepository);
+                        adminPage.Show();
+                        resetFormLogin();
+                    }
+                    else if (customer != null)
+                    {
+                        Session.Username = email;
+                        Session.Role = "Customer";
+                        this.Hide();
+                        Home home = new Home(this, customerRepository, bookingRepository, roomRepository, bookingDetailRepository, customer);
+                        home.Show();
+                        resetFormLogin();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wrong email or password!");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Wrong email or password");
+                    MessageBox.Show("Your email is not format input!");
                 }
             }
             else
             {
-                MessageBox.Show("Please enter email and password");
+                MessageBox.Show("Please enter email and password!");
             }
         }
     }

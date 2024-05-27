@@ -69,9 +69,15 @@
                                 Search
                             </Button>
                         </StackPanel>
-                        <StackPanel Margin="10 200">
-                            <Button Content="Logout"  BorderThickness="0" Width="50" HorizontalAlignment="Right" Click="Button_Logout"/>
+                        <StackPanel Margin="10 10">
+                            <Button Click="Button_OpenProfile" Style="{StaticResource ResourceKey=btnPrimary}" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Center" >
+                                Profile
+                            </Button>
                         </StackPanel>
+                        <StackPanel Margin="10 150">
+                            <Button Content="Logout" Width="80" Height="30" Padding="5 4" HorizontalAlignment="Center" Click="Button_Logout"/>
+                        </StackPanel>
+                        
                     </StackPanel>
                 </Border>
             </Grid>
