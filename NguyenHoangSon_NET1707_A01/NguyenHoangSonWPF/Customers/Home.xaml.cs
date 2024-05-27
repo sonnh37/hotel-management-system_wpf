@@ -108,7 +108,7 @@ namespace NguyenHoangSonWPF
         private void Button_OpenHistory(object sender, RoutedEventArgs e)
         {
             HistoryBookingManagement bookingManagementPage = new HistoryBookingManagement(bookingRepository, bookingDetailRepository
-                , new CustomerManagementPage(customerRepository), customer);
+                , new CustomerManagementPage(customerRepository), customerRepository.GetById(customer.CustomerId));
             bookingManagementPage.Show();
         }
 
