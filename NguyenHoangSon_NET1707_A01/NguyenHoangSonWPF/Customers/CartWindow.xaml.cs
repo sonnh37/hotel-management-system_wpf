@@ -79,6 +79,7 @@ namespace NguyenHoangSonWPF.Customers
         private void Button_Checkout(object sender, RoutedEventArgs e)
         {
             CreateNewBookingReservationToDb();
+            this.Close();
         }
 
         private void CreateNewBookingReservationToDb()
